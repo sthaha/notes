@@ -1,0 +1,4 @@
+/go/pkg/
+/go/src/github.com/
+/go/bin/
+.ipynb_checkpoints

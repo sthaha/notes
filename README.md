@@ -37,12 +37,5 @@ cp $GOPATH/src/github.com/gopherdata/gophernotes/kernel/* !$
 
 
 ```
-cd $(git rev-parse --show-toplevel)
-source activate notes
-
-export GOPATH=$PWD/go
-export GOBIN=$GOPATH/bin
-export PATH=$PATH:$GOBIN
-
-jupyter notebook
+./start.sh
 ```

@@ -12,6 +12,7 @@ dependencies:
   - jupyter_client
   - jupyter_console
   - jupyter_core
+  - jupyterthemes
   - matplotlib
   - notebook
   - numpy

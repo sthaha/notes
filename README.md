@@ -32,10 +32,18 @@ mkdir -p $(jupyter --data-dir)/kernels/gophernotes
 cp $GOPATH/src/github.com/gopherdata/gophernotes/kernel/* !$
 ```
 
-
 ### Running
 
+```
+source activate notes
+./start.sh
+```
+Also note that the script exits if it fails to detect that he active conda env isn't `notes`
+
+## Theme
+
+The one I use is
 
 ```
-./start.sh
+jt -t onedork -fs 95 -altp -tfs 11 -nfs 115 -cellw 88% -T -vim
 ```

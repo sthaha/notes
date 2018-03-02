@@ -1,0 +1,20 @@
+name: notes
+channels:
+  - conda-forge
+  - conda
+dependencies:
+  - dill
+  - ipykernel
+  - ipython
+  - ipython_genutils
+  - ipywidgets
+  - jupyter
+  - jupyter_client
+  - jupyter_console
+  - jupyter_core
+  - matplotlib
+  - notebook
+  - numpy
+  - pandas
+  - python=3.6*
+  - toolz

@@ -1,0 +1,15 @@
+bookmarks:
+  - url: https://www.youtube.com/watch?v=rDRa23k70CU
+    notes: discusses patterns
+    tags: [concurrency, patterns]
+
+  - url: https://www.youtube.com/watch?v=KyuFeiG3Y60
+    notes: visualisation for go routines
+    tags: [concurrency, visualisation]
+
+  - url: https://www.youtube.com/watch?v=rDRa23k70CU
+    notes: system implementation from scratch
+    tags: [system-design, evolution]
+
+  - url: https://www.youtube.com/watch?v=uBjoTxosSys
+    tags: [profiling, tools]

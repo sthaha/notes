@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"playground/packages/shouter"
-	"playground/packages/simplifier"
+	"lang/packages/shouter"
+	"lang/packages/simplifier"
 )
 
 func main() {

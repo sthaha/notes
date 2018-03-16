@@ -13,3 +13,6 @@ bookmarks:
 
   - url: https://www.youtube.com/watch?v=uBjoTxosSys
     tags: [profiling, tools]
+
+  - url: https://www.youtube.com/watch?v=YF1qSfkDGAQ
+    tags: [servers hardening production-ready 2017 context]

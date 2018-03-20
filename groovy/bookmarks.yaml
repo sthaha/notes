@@ -1,0 +1,10 @@
+bookmarks:
+  - url: https://www.slideshare.net/arturoherrero/functional-programming-with-groovy
+    tags: [functional-programming, higher-order]
+
+  - url: https://www.ibm.com/developerworks/library/j-ft7/index.htm://www.ibm.com/developerworks/library/j-ft7/index.html
+    tags: [functional-programming, higher-order]
+
+  - url: https://www.youtube.com/watch?v=AX2v4UTM2Vg
+    tags: [functional-programming collections]
+

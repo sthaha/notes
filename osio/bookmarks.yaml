@@ -2,3 +2,7 @@ bookmarks:
   - url: https://github.com/jenkinsci/script-security-plugin/blob/master/src/main/resources/org/jenkinsci/plugins/scriptsecurity/sandbox/whitelists/jenkins-whitelist
     notes: jenkins list of whitelisted methods
     tags: [jenkins, methods, whitelist]
+
+  - url: https://medium.com/garbage-collection/jenkins-pipelines-what-i-wish-i-knew-starting-out-6e3d4eb2ff5b
+    notes: a nice list of things to be aware of
+    tags: [jenkins, pipeline things-to-know, tips-tricks]

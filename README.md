@@ -44,6 +44,20 @@ npm install -g ijavascript
 ijsinstall
 ```
 
+
+### Install typescript
+
+Followed instructions on https://github.com/nearbydelta/itypescript to install
+typescript kernel.
+
+NOTE: First I installed nodejs kernel and then the itypescript
+
+```shell
+source activate notes
+npm install -g itypescript
+its --ts-install=local
+```
+
 ### Running
 
 ```

@@ -32,6 +32,18 @@ mkdir -p $(jupyter --data-dir)/kernels/gophernotes
 cp $GOPATH/src/github.com/gopherdata/gophernotes/kernel/* !$
 ```
 
+### Install nodejs kernel
+
+See: https://github.com/n-riesco/ijavascript
+
+```shell
+# after adding nodejs
+conda env update
+
+npm install -g ijavascript
+ijsinstall
+```
+
 ### Running
 
 ```

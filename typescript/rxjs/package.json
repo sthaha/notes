@@ -9,6 +9,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "node-fetch": "^2.1.1",
     "rxjs": "^5.5.7"
+  },
+  "devDependencies": {
+    "@types/node-fetch": "^1.6.7",
+    "typescript": "^2.6.2"
   }
 }

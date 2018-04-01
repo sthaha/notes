@@ -26,3 +26,7 @@ bookmarks:
   - url: https://www.youtube.com/watch?v=5v2fqm_8jYI
     notes: tips on writing a lib
     tags: [library]
+
+  - url: https://www.youtube.com/watch?v=SzgRMrrbTnM
+    notes: static analysis of concurrency models to find deadlocks
+    tags: [static-analysis concurrency model]

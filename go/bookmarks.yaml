@@ -29,4 +29,4 @@ bookmarks:
 
   - url: https://www.youtube.com/watch?v=SzgRMrrbTnM
     notes: static analysis of concurrency models to find deadlocks
-    tags: [static-analysis, concurrency model]
+    tags: [static-analysis, concurrency model, dining-philosophers]

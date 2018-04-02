@@ -1,0 +1,4 @@
+bookmarks:
+  - url: https://powerdns.org/hello-dns/
+    notes: hello dns; explains dns
+    tags: [dns]

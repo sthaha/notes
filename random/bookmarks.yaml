@@ -2,3 +2,9 @@ bookmarks:
   - url: https://gist.github.com/ldez/bd6e6401ad0855e6c0de6da19a8c50b5
     notes: gmail filter for github email
     tags: [gmail, filter, github, email, productivity]
+
+  - url: https://www.youtube.com/watch?v=dC9vdQkU-xI
+    notes:  |
+      writing cleaner code; shows complicated fizzbuzz,
+      better names
+    tags: [clean-code, fizzbuzz, c++ ]

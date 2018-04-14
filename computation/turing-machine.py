@@ -38,4 +38,14 @@ def execute(instructions):
         state = target_state
         head += 1 if move_dir == "R" else -1
 
+def execute_terse(instructions):
+    head, state, tape = 0, "s1", ['B', 'B']
+
+    for _ in range(9):
+        print_state(tape, head, state)
+        tape[head], move_dir, state = instructions[(tape[head], state)]
+        head += 1 if move_dir == "R" else -1
+
+execute_terse(X_B)
+print("..........................")
 execute(X_B)

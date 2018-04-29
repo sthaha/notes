@@ -2,3 +2,7 @@ bookmarks:
   - url: http://wiki.fast.ai/index.php/Main_Page
     notes: fastai wiki
     tags: [fastai, wiki, index]
+
+  - url: https://camdavidsonpilon.github.io/Probabilistic-Programming-and-Bayesian-Methods-for-Hackers/
+    notes: Opensource ML book written as a jupyter/ipython notebook
+    tags: [ipython-notebook, machine-learning]

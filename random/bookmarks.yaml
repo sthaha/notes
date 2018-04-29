@@ -8,3 +8,7 @@ bookmarks:
       writing cleaner code; shows complicated fizzbuzz,
       better names
     tags: [clean-code, fizzbuzz, c++ ]
+
+  - url: http://data-blog.udacity.com/posts/2016/10/latex-primer/
+    notes: Latex primer on Jupyter Notebook
+    tags: [udacity, latex, primer ]

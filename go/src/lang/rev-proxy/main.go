@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"sync"
 	"time"
 )
 
@@ -24,7 +25,7 @@ func (s *service) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	io.WriteString(w, response)
 }
 
-func startService(ctx context.Context, addr string) {
+func startService(wg *sync.WaitGroup, ctx context.Context, addr string) {
 	mux := newService()
 	s := &http.Server{
 		Addr:           addr,
@@ -46,31 +47,37 @@ func startService(ctx context.Context, addr string) {
 		}
 	}()
 
+	wg.Add(1)
+	defer wg.Done()
 	log.Printf("Going to start server at %q ", s.Addr)
-
 	if err := s.ListenAndServe(); err != http.ErrServerClosed {
 		// Error starting or closing listener:
 		log.Printf("HTTP server ListenAndServe: %v", err)
 	}
 }
 
-func cancelContextOnInterrupt(cancel context.CancelFunc) {
-	sigint := make(chan os.Signal, 1)
-	signal.Notify(sigint, os.Interrupt)
-	<-sigint
-	log.Printf("--------------------------------------------------")
-	log.Printf("interrupted: cancelling context")
-	cancel()
+func interruptableContext() context.Context {
+	ctx, cancel := context.WithCancel(context.Background())
+	go func() {
+		sigint := make(chan os.Signal, 1)
+		signal.Notify(sigint, os.Interrupt)
+		<-sigint
+		log.Printf("--------------------------------------------------")
+		log.Printf("interrupted: cancelling context")
+		cancel()
+	}()
+	return ctx
 }
 
 func main() {
-	ctx, cancel := context.WithCancel(context.Background())
-	go cancelContextOnInterrupt(cancel)
-	go startService(ctx, ":8080")
-	go startService(ctx, ":8081")
-	go startService(ctx, ":8082")
+	var wg sync.WaitGroup
+	ctx := interruptableContext()
+	go startService(&wg, ctx, ":8080")
+	go startService(&wg, ctx, ":8081")
+	go startService(&wg, ctx, ":8081")
 
 	<-ctx.Done()
-	log.Printf(".... waiting 2 seconds for servers to terminate")
-	time.Sleep(2 * time.Second)
+	log.Printf("waiting for servers to terminate")
+	wg.Wait()
+	log.Printf("All Good .. bye!")
 }

@@ -25,7 +25,7 @@ func (s *service) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	io.WriteString(w, response)
 }
 
-func startService(wg *sync.WaitGroup, ctx context.Context, addr string) {
+func startService(ctx context.Context, wg *sync.WaitGroup, addr string) {
 	mux := newService()
 	s := &http.Server{
 		Addr:           addr,
@@ -72,9 +72,9 @@ func interruptableContext() context.Context {
 func main() {
 	var wg sync.WaitGroup
 	ctx := interruptableContext()
-	go startService(&wg, ctx, ":8080")
-	go startService(&wg, ctx, ":8081")
-	go startService(&wg, ctx, ":8081")
+	go startService(ctx, &wg, ":8080")
+	go startService(ctx, &wg, ":8081")
+	go startService(ctx, &wg, ":8081")
 
 	<-ctx.Done()
 	log.Printf("waiting for servers to terminate")

@@ -1,80 +1,55 @@
 package main
 
 import (
-	"bytes"
+	// "bytes"
 	"context"
-	"fmt"
-	"io"
-	"io/ioutil"
-	"log"
+	// "fmt"
+	// "io"
+	// "io/ioutil"
+	// "log"
 	"net/http"
 	"net/http/httputil"
 	"net/url"
+	"strings"
 	"sync"
 )
 
-type revProxy struct {
-	target *url.URL
-	server *httputil.ReverseProxy
-}
-
-func newReverseProxy(target string) *revProxy {
-	url, _ := url.Parse(target)
-	return &revProxy{
-		target: url,
-		server: httputil.NewSingleHostReverseProxy(url),
+func singleJoiningSlash(a, b string) string {
+	aslash := strings.HasSuffix(a, "/")
+	bslash := strings.HasPrefix(b, "/")
+	switch {
+	case aslash && bslash:
+		return a + b[1:]
+	case !aslash && !bslash:
+		return a + "/" + b
 	}
+	return a + b
 }
 
-func (p *revProxy) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	reply := fmt.Sprintf("Reverse proxy: redirecting %q to: %q \n", r.URL, p.target)
-	io.WriteString(w, reply)
-	p.handle(w, r)
-}
-
-func (p *revProxy) handle(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("X-GoProxy", "GoProxy")
-	p.server.Transport = &myTransport{}
-	p.server.ServeHTTP(w, r)
-}
-
-type myTransport struct {
-}
-
-func (t *myTransport) RoundTrip(req *http.Request) (*http.Response, error) {
-	buf, _ := ioutil.ReadAll(req.Body)
-
-	rdr1 := ioutil.NopCloser(bytes.NewBuffer(buf))
-	rdr2 := ioutil.NopCloser(bytes.NewBuffer(buf))
-
-	log.Printf(`>>> Request body
-	%s
-	>>> -----------------------------
-	`, rdr1)
-
-	req.Body = rdr2
-
-	response, err := http.DefaultTransport.RoundTrip(req)
-	if err != nil {
-		log.Println("\n\ncame in error resp here", err)
-		return nil, err //Server is not reachable. Server not working
+func newReverseProxy(target *url.URL) *httputil.ReverseProxy {
+	targetQuery := target.RawQuery
+	director := func(req *http.Request) {
+		req.URL.Scheme = target.Scheme
+		req.URL.Host = target.Host
+		req.URL.Path = singleJoiningSlash(target.Path, req.URL.Path)
+		if targetQuery == "" || req.URL.RawQuery == "" {
+			req.URL.RawQuery = targetQuery + req.URL.RawQuery
+		} else {
+			req.URL.RawQuery = targetQuery + "&" + req.URL.RawQuery
+		}
+		if _, ok := req.Header["User-Agent"]; !ok {
+			// explicitly disable User-Agent so it's not set to default value
+			req.Header.Set("User-Agent", "")
+		}
 	}
-
-	body, err := httputil.DumpResponse(response, true)
-	if err != nil {
-		log.Println("\n\nerror in dumb response")
-		// copying the response body did not work
-		return nil, err
+	return &httputil.ReverseProxy{
+		Director: director,
 	}
-
-	log.Printf(`>>> Response Body :
-	%s
-	----------------------
-	`, string(body))
-	return response, err
 }
 
 func startReverseProxy(ctx context.Context, wg *sync.WaitGroup, addr, target string) {
-	proxy := newReverseProxy(target)
+	targetURL, _ := url.Parse(target)
+
+	proxy := newReverseProxy(targetURL)
 	startServer(ctx, wg, addr, proxy)
 }

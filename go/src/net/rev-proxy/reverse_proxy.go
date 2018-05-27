@@ -43,6 +43,7 @@ func director(target *url.URL) directorFunc {
 			// explicitly disable User-Agent so it's not set to default value
 			req.Header.Set("User-Agent", "")
 		}
+		log.Printf(" > RevProxy: Director %v", req.URL)
 
 	}
 
@@ -105,8 +106,16 @@ func NewSpyResponseWriter(w http.ResponseWriter) *SpyResponseWriter {
 }
 
 func (spy *SpyResponseWriter) WriteHeader(code int) {
+	log.Printf(" > RevProxy: WriteHeader %v", code)
 	spy.statusCode = code
-	spy.ResponseWriter.WriteHeader(code)
+	if code != http.StatusBadGateway {
+		spy.ResponseWriter.WriteHeader(code)
+	}
+}
+
+func (spy *SpyResponseWriter) Write(stuff []byte) (int, error) {
+	log.Printf(" > RevProxy: Write stuff %s", stuff)
+	return spy.ResponseWriter.Write(stuff)
 }
 
 func (p *revProxy) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -117,9 +126,11 @@ func (p *revProxy) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	defer cancel()
 
-	proxy := newReverseProxy(p.targetURL)
+	// proxy := newReverseProxy(p.targetURL)
+	proxy := newLoggedReverseProxy(p.targetURL)
 	spy := NewSpyResponseWriter(w)
 	proxy.ServeHTTP(spy, req)
+
 	if spy.statusCode == http.StatusBadGateway {
 		w.WriteHeader(200)
 		io.WriteString(w, "From Proxy: all good to go")

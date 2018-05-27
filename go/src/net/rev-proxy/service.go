@@ -15,9 +15,10 @@ type serverConfig struct {
 }
 
 func (config serverConfig) rootHandler(w http.ResponseWriter, r *http.Request) {
-	log.Printf("Service: Got: %s\n", r.URL)
-	response := fmt.Sprintf("Hello from server: path: %q\n", r.URL)
+	log.Printf(">> rootHandler: Got: %s\n", r.URL)
+	response := fmt.Sprintf("Service: path: %q\n", r.URL)
 	w.WriteHeader(200)
+	io.WriteString(w, response)
 	io.WriteString(w, response)
 
 	time.Sleep(config.delay)
@@ -26,10 +27,31 @@ func (config serverConfig) rootHandler(w http.ResponseWriter, r *http.Request) {
 	log.Printf("Wrote response for: %s\n", r.URL)
 }
 
-func startService(ctx context.Context, wg *sync.WaitGroup, addr string, basePath string, delay time.Duration) {
+func (config serverConfig) ok(w http.ResponseWriter, r *http.Request) {
+	log.Printf(">> OK Got: %s\n", r.URL)
+	response := fmt.Sprintf(">> server: path: %q\n", r.URL)
+	w.WriteHeader(200)
+	io.WriteString(w, response)
+	log.Printf("Wrote response for: %s\n", r.URL)
+}
+
+func (config serverConfig) notFound(w http.ResponseWriter, r *http.Request) {
+	log.Printf(">> NOT Found: Got: %s\n", r.URL)
+	response := fmt.Sprintf(">> server: Not found: %q\n", r.URL)
+	w.WriteHeader(404)
+	io.WriteString(w, response)
+	log.Printf("Wrote response for: %s\n", r.URL)
+}
+
+func startService(
+	ctx context.Context, wg *sync.WaitGroup,
+	addr string, delay time.Duration) {
 	mux := http.NewServeMux()
+
 	config := &serverConfig{delay: delay}
-	mux.HandleFunc(basePath, config.rootHandler)
+	mux.HandleFunc("/api/ok/", config.ok)
+	mux.HandleFunc("/api/notfound/", config.notFound)
+	mux.HandleFunc("/api/", config.rootHandler)
 
 	startServer(ctx, wg, addr, mux)
 }

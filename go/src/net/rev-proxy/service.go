@@ -16,7 +16,8 @@ type serverConfig struct {
 
 func (config serverConfig) rootHandler(w http.ResponseWriter, r *http.Request) {
 	log.Printf(">> rootHandler: Got: %s\n", r.URL)
-	response := fmt.Sprintf("Service: path: %q\n", r.URL)
+
+	response := fmt.Sprintf("Service: got path: %q\n", r.URL)
 	w.WriteHeader(200)
 	io.WriteString(w, response)
 	io.WriteString(w, response)

@@ -96,24 +96,25 @@ type revProxy struct {
 	targetURL *url.URL
 }
 
-type SpyResponseWriter struct {
+type ResponseWriterSpy struct {
 	http.ResponseWriter
 	statusCode int
 }
 
-func NewSpyResponseWriter(w http.ResponseWriter) *SpyResponseWriter {
-	return &SpyResponseWriter{w, http.StatusOK}
+func NewSpyResponseWriter(w http.ResponseWriter) *ResponseWriterSpy {
+	return &ResponseWriterSpy{w, http.StatusOK}
 }
 
-func (spy *SpyResponseWriter) WriteHeader(code int) {
+func (spy *ResponseWriterSpy) WriteHeader(code int) {
 	log.Printf(" > RevProxy: WriteHeader %v", code)
 	spy.statusCode = code
 	if code != http.StatusBadGateway {
+		log.Printf(" > RevProxy: WriteHeader %v - SKIPPED", code)
 		spy.ResponseWriter.WriteHeader(code)
 	}
 }
 
-func (spy *SpyResponseWriter) Write(stuff []byte) (int, error) {
+func (spy *ResponseWriterSpy) Write(stuff []byte) (int, error) {
 	log.Printf(" > RevProxy: Write stuff %s", stuff)
 	return spy.ResponseWriter.Write(stuff)
 }
@@ -132,6 +133,8 @@ func (p *revProxy) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	proxy.ServeHTTP(spy, req)
 
 	if spy.statusCode == http.StatusBadGateway {
+		log.Printf(" > RevProxy: Got Bad Gateway \n")
+
 		w.WriteHeader(200)
 		io.WriteString(w, "From Proxy: all good to go")
 	}

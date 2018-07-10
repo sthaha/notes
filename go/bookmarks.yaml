@@ -30,3 +30,10 @@ bookmarks:
   - url: https://www.youtube.com/watch?v=SzgRMrrbTnM
     notes: static analysis of concurrency models to find deadlocks
     tags: [static-analysis, concurrency model, dining-philosophers]
+
+  - url: https://stackoverflow.com/questions/43021058/golang-read-request-body
+    tags: [middleware, http, reader, body]
+
+  - url: https://www.youtube.com/watch?v=SmoM1InWXr0
+    notes: concurrency patterns (CSP) beyond basics
+    tags: [concurrency patterns load-balancer]

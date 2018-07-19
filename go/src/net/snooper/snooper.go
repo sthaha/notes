@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-func forward(serviceURL string) http.HandlerFunc {
+func forward(serviceURL string, retry int) http.HandlerFunc {
 	u, err := url.Parse(serviceURL)
 
 	if err != nil {
@@ -17,9 +17,23 @@ func forward(serviceURL string) http.HandlerFunc {
 		// NOTE: fatal exits so the return is added only for readability
 		return nil
 	}
-	proxy := httputil.NewSingleHostReverseProxy(u)
+	count := map[string]int{}
 
-	return proxy.ServeHTTP // (w, r)
+	waitMin := wait(60 * time.Second)
+	service := httputil.NewSingleHostReverseProxy(u)
+
+	return func(w http.ResponseWriter, r *http.Request) {
+		if c := count[r.URL.String()]; c < retry {
+			log.Printf(">>> [forward]: waiting %q count %d", r.URL.String(), c)
+			count[r.URL.String()] = c + 1
+			waitMin(w, r)
+			return
+		}
+
+		count[r.URL.String()] = 0
+		log.Printf(">>> [forward]: forwarding %q | count: 0", r.URL.String())
+		service.ServeHTTP(w, r)
+	}
 
 }
 
@@ -72,7 +86,7 @@ func wait(duration time.Duration) http.HandlerFunc {
 }
 
 func main() {
-	http.HandleFunc("/api/tenants/", snoop(forward("http://localhost:9222")))
-	http.HandleFunc("/", snoop(wait(60*time.Second)))
+	http.HandleFunc("/api/tenants/", snoop(forward("http://localhost:9222", 3)))
+	// http.HandleFunc("/", snoop(wait(60*time.Second)))
 	log.Fatal(http.ListenAndServe(":9002", nil))
 }

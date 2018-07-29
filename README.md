@@ -6,7 +6,7 @@
 ```
 cd $(git rev-parse --show-toplevel)
 conda create -n notes python=3.6
-source activate notes
+conda activate notes
 ```
 
 ### Update env
@@ -53,7 +53,7 @@ typescript kernel.
 NOTE: First I installed nodejs kernel and then the itypescript
 
 ```shell
-source activate notes
+conda activate notes
 npm install -g itypescript
 its --ts-install=local
 ```
@@ -61,7 +61,7 @@ its --ts-install=local
 ### Running
 
 ```
-source activate notes
+conda activate notes
 ./start.sh
 ```
 Also note that the script exits if it fails to detect that he active conda env isn't `notes`

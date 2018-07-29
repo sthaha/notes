@@ -11,12 +11,12 @@ active_conda_env() {
 
 
 main() {
-  cd $(git rev-parse --show-toplevel)
+  cd "$(git rev-parse --show-toplevel)"
 
-  # source activate notes
+  # conda activate notes
   # calling source activate doesn't work ... so make sure user has done it
   [[ $(active_conda_env) != "notes" ]] && {
-    echo "ERROR: 'notes' not active; did you forget to 'source activate notes'?"
+    echo "ERROR: 'notes' not active; did you forget 'conda activate notes' ?"
     return 1
   }
 

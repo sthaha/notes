@@ -6,3 +6,6 @@ bookmarks:
   - url: https://camdavidsonpilon.github.io/Probabilistic-Programming-and-Bayesian-Methods-for-Hackers/
     notes: Opensource ML book written as a jupyter/ipython notebook
     tags: [ipython-notebook, machine-learning]
+  - url: https://mlcourse.ai/
+    notes: open ml course
+    tags: [course, machine-learning]

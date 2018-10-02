@@ -1,0 +1,7 @@
+bookmarks:
+  - url: http://pages.cs.wisc.edu/~remzi/OSTEP/
+    notes: operating system book
+    tag: [os, book]
+  - url:  https://www.youtube.com/watch?v=7uwW20odwEk
+    notes: power of unix; everything is a file
+    tags: [abstractions, file, pipes]

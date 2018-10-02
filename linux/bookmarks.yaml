@@ -5,3 +5,6 @@ bookmarks:
   - url:  https://www.youtube.com/watch?v=7uwW20odwEk
     notes: power of unix; everything is a file
     tags: [abstractions, file, pipes]
+
+  - url: http://pubs.opengroup.org/onlinepubs/7908799/xcurses/terminfo.html
+    tags: [zsh, bash, terminfo, keys]

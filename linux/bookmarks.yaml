@@ -8,3 +8,5 @@ bookmarks:
 
   - url: http://pubs.opengroup.org/onlinepubs/7908799/xcurses/terminfo.html
     tags: [zsh, bash, terminfo, keys]
+  - url: https://www.youtube.com/watch?v=RzAkjX_9B7E
+    tags: [man]

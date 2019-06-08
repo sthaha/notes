@@ -1,0 +1,17 @@
+- url: https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands
+  notes: kubectl command reference
+  tags: [k8s, commands, ref]
+- url: https://kubernetes.io/docs/reference/kubectl/cheatsheet/
+  tags: [k8s, cheatsheet]
+- url: https://www.youtube.com/watch?v=1_7e4AyiYd8
+  tags: [istio]
+  notes: the best I have found so far
+- url: https://darkowlzz.github.io/post/minikube-config/
+  tags: [minikube, config]
+  notes: set of available minikube configs
+- url: https://www.youtube.com/watch?v=PYLFZVv68lM
+  tags: [generator, nik, controller, go, api-machinery]
+  notes: explains how to go from types.go to generate clientset
+- url: https://www.youtube.com/watch?v=AUNPLQVxvmw
+  tags: [controllers, pattern]
+  notes: author of job controller talks about how to write controller

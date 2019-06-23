@@ -15,3 +15,9 @@
 - url: https://www.youtube.com/watch?v=AUNPLQVxvmw
   tags: [controllers, pattern]
   notes: author of job controller talks about how to write controller
+- url: https://www.youtube.com/watch?v=ZuIQurh_kDk
+  notes: |-
+    Storage sig member presents why k8s is designed in this way.
+    This should have been the first or one of the first videos I should have
+    watched.
+  tags: [k8s, api, design, why]

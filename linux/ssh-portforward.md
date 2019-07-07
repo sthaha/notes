@@ -17,5 +17,12 @@ To foward local 8000 to reddit.com:80 via ssh-host
 ```
 Host reddit-via-host
   Hostname ssh-host
-  LocalForward 8443 reddit.com:80
+  LocalForward 8443 reddit.com:443
+```
+
+Run ssh without any command `-N`
+
+```
+ssh -N reddit-via-host
+curl localhost:8443
 ```

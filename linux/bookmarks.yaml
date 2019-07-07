@@ -12,3 +12,8 @@ bookmarks:
     tags: [man]
   - url: https://www.maizure.org/projects/decoded-gnu-coreutils/cat.html
     tags: [coreutils explained]
+  - url: https://www.youtube.com/watch?v=eHVc08HVTwI
+    tags: [ssl-cert, cert, certs]
+  - url: https://www.youtube.com/watch?v=Sk9TatW9ino
+    notes: builds simplest possible linux system
+    tags: [scratch, linux, kernel]

@@ -49,7 +49,7 @@ func TestConnect(t *testing.T) {
 	g.addNode("bob")
 	assert.Equal(t, 2, g.size())
 
-	g.connect("alice", "bob", 8)
+	g.addEdge("alice", "bob", 8)
 	assert.Equal(t, 2, g.size())
 }
 
@@ -58,9 +58,29 @@ func TestWeightOf(t *testing.T) {
 
 	g.addNode("alice")
 	g.addNode("bob")
-	g.connect("alice", "bob", 8)
+	g.addEdge("alice", "bob", 8)
 
-	w, err := g.weightOf("alice", "bob")
+	w, err := g.edgeWeight("alice", "bob")
 	assert.Equal(t, 8, w)
 	assert.NoError(t, err, "alice and bob are connected")
+}
+
+func TestGraph_adjacents(t *testing.T) {
+	g := newUndirected()
+	// a - b - c - d
+	//  \    /
+	//   - m
+	g.addEdge("a", "b", 1)
+	g.addEdge("b", "c", 1)
+	g.addEdge("c", "d", 1)
+
+	g.addEdge("a", "m", 1)
+
+	assert.Equal(t, 2, len(g.adjacents("a")))
+	assert.Equal(t, 1, len(g.adjacents("d")))
+	assert.Equal(t, 2, len(g.adjacents("b")))
+
+	g.addEdge("m", "c", 1)
+	assert.Equal(t, 3, len(g.adjacents("c")))
+
 }

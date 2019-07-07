@@ -5,5 +5,7 @@
 /go/src/honnef.co/
 /go/bin/
 .ipynb_checkpoints
-
+/osio
 node_modules/
+.secrets
+secrets

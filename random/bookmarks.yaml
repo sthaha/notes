@@ -7,8 +7,23 @@ bookmarks:
     notes:  |
       writing cleaner code; shows complicated fizzbuzz,
       better names
-    tags: [clean-code, fizzbuzz, c++ ]
+    tags: [clean-code, fizzbuzz, c++]
 
   - url: http://data-blog.udacity.com/posts/2016/10/latex-primer/
     notes: Latex primer on Jupyter Notebook
-    tags: [udacity, latex, primer ]
+    tags: [udacity, latex, primer]
+
+  - url: https://github.com/jwilder/nginx-proxy
+    notes: auto setup lets-encrypt
+    tags: [lets-encrypt, nginx, docker, ansh]
+
+  - url: https://blog.florianlopes.io/host-multiple-websites-on-single-host-docker/
+    notes: auto setup lets-encrypt
+    tags: [lets-encrypt, nginx, docker, ansh]
+
+  - url: https://www.linode.com/docs/security/ssl/install-lets-encrypt-to-create-ssl-certificates/
+    notes: auto setup lets-encrypt
+    tags: [lets-encrypt, nginx, linode, ansh]
+  - url: https://iturbe.info/2017/10/the-command-line-productivity-triad-vimwiki-taskwarrior-timewarrior/
+    notes: setting up taskwarrior and vimwiki
+    tags: [taskwarrior, vimwiki, gtd]

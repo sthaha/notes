@@ -37,3 +37,5 @@ bookmarks:
   - url: https://www.youtube.com/watch?v=SmoM1InWXr0
     notes: concurrency patterns (CSP) beyond basics
     tags: [concurrency patterns load-balancer]
+  - url: https://www.youtube.com/watch?v=UMbicEbSIjc
+    tags [templates]

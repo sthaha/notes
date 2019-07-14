@@ -24,12 +24,12 @@ type nodeWeight map[node]int
 type connections map[node]nodeWeight
 
 type undirected struct {
-	conns connections
+	graph connections
 }
 
 func newUndirected() *undirected {
 	return &undirected{
-		conns: connections{},
+		graph: connections{},
 	}
 }
 
@@ -38,25 +38,25 @@ func (g *undirected) addNode(x node) error {
 		return errNodeExists
 	}
 
-	g.conns[x] = nodeWeight{}
+	g.graph[x] = nodeWeight{}
 	return nil
 }
 
 func (g *undirected) size() int {
-	return len(g.conns)
+	return len(g.graph)
 }
 
-func (g *undirected) addEdge(a, b node, weight int) error {
+func (g *undirected) connect(a, b node, weight int) error {
 
 	g.addNode(a)
 	g.addNode(b)
-	g.conns[a][b] = weight
-	g.conns[b][a] = weight
+	g.graph[a][b] = weight
+	g.graph[b][a] = weight
 	return nil
 }
 
 func (g *undirected) contains(x node) bool {
-	_, ok := g.conns[x]
+	_, ok := g.graph[x]
 	return ok
 }
 
@@ -64,7 +64,7 @@ func (g *undirected) isAdjascent(a, b node) bool {
 	if !g.contains(a) || !g.contains(b) {
 		return false
 	}
-	_, ok := g.conns[a][b]
+	_, ok := g.graph[a][b]
 	return ok
 }
 
@@ -74,7 +74,7 @@ func (g *undirected) edgeWeight(a, b node) (int, error) {
 		return 0, errNodeNotFound
 	}
 
-	w, ok := g.conns[a][b]
+	w, ok := g.graph[a][b]
 	if !ok {
 		return 0, errNotAdjacent
 	}
@@ -82,8 +82,8 @@ func (g *undirected) edgeWeight(a, b node) (int, error) {
 }
 
 func (g *undirected) nodes() []node {
-	keys := make([]node, 0, len(g.conns))
-	for k := range g.conns {
+	keys := make([]node, 0, len(g.graph))
+	for k := range g.graph {
 		keys = append(keys, k)
 	}
 	return keys
@@ -94,7 +94,7 @@ func (g *undirected) adjacents(x node) []node {
 		return []node{}
 	}
 
-	adj := g.conns[x]
+	adj := g.graph[x]
 	keys := make([]node, 0, len(adj))
 	for k := range adj {
 		keys = append(keys, k)

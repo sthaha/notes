@@ -14,7 +14,14 @@ var (
 
 type node interface{}
 
-type graph interface {
+// path is a list of nodes with edge between each of them representing
+// a route from the first element to the last
+type path []node
+
+func (p path) reverse() {
+	for left, right := 0, len(p)-1; left < right; left, right = left+1, right-1 {
+		p[left], p[right] = p[right], p[left]
+	}
 }
 
 // b : 8
@@ -22,6 +29,13 @@ type nodeWeight map[node]int
 
 // a : b : 8 -> a is connected to b with a weight of 8
 type connections map[node]nodeWeight
+
+type graph interface {
+	addNode(x node) error
+	nodes() []node
+
+	adjacents(n node) []node
+}
 
 type undirected struct {
 	graph connections
@@ -112,3 +126,14 @@ func printGraph(g *undirected) string {
 	}
 	return out.String()
 }
+
+// ## algorithms
+// 1. is a and c connected
+// 2. shorted path between a and b
+// 3. is there a cycle in the graph
+// 4. Eulers tour of graph -> cycle that visit each edge only once
+// 5. hamilton tour
+// ### Connectivity
+// 6. are all vertices connected
+// 7. MST ?? what is the best way to connect all vertices
+// 8. is there a vertex whose removal disconnects the graph

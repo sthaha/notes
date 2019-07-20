@@ -84,3 +84,13 @@ func TestGraph_adjacents(t *testing.T) {
 	assert.Equal(t, 3, len(g.adjacents("c")))
 
 }
+
+func TestGraph_self_loop(t *testing.T) {
+	g := newUndirected()
+	// a - b - c - d
+	//  \    /
+	//   - m
+	g.connect("a", "a", 1)
+	assert.Equal(t, 1, len(g.adjacents("a")))
+
+}

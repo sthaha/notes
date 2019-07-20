@@ -71,10 +71,10 @@ func (p *dfsInfo) traverse(x node, v visited) {
 
 	for _, adj := range p.graph.adjacents(x) {
 		if v[adj] {
-			log.Printf("   >> %s SKIPPED", adj)
+			log.Printf("   >> %v SKIPPED", adj)
 			continue
 		}
-		log.Printf("   >> %s", adj)
+		log.Printf("   >> %v -> %v", adj, x)
 		p.path[adj] = x
 		p.traverse(adj, v)
 	}

@@ -14,7 +14,7 @@ func bfs(g graph, x node) *bfsInfo {
 		target: x,
 		path:   map[node]node{x: x},
 	}
-	p.traverse(x, visited{})
+	p.traverse(x)
 	log.Printf("Path: %v", p.path)
 	return p
 }
@@ -54,28 +54,22 @@ func (p *bfsInfo) to(x node) path {
 
 // traverse  builds bfs information for node x
 // internal
-func (p *bfsInfo) traverse(x node, v visited) {
+func (p *bfsInfo) traverse(x node) {
 	log.Printf("path: %v", p.path)
-	//log.Printf("... mark %s visited", x)
-	//v[x] = true
+	log.Printf("... mark %s visited", x)
 
 	next := []node{}
 	for _, adj := range p.graph.adjacents(x) {
-		//if v[adj] {
-		//log.Printf("   >> %v SKIPPED", adj)
-		//continue
-		//}
 		if _, ok := p.path[adj]; ok {
 			log.Printf("   >> %v SKIPPED: already in path", adj)
 			continue
 		}
 		log.Printf("   >> %v -> %v", adj, x)
 		p.path[adj] = x
-		//v[adj] = true
 		next = append(next, adj)
 	}
 
 	for _, n := range next {
-		p.traverse(n, v)
+		p.traverse(n)
 	}
 }

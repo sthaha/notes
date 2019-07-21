@@ -14,16 +14,6 @@ var (
 
 type node interface{}
 
-// path is a list of nodes with edge between each of them representing
-// a route from the first element to the last
-type path []node
-
-func (p path) reverse() {
-	for left, right := 0, len(p)-1; left < right; left, right = left+1, right-1 {
-		p[left], p[right] = p[right], p[left]
-	}
-}
-
 // b : 8
 type nodeWeight map[node]int
 

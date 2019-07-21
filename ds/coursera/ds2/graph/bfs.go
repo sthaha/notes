@@ -2,14 +2,14 @@ package graph
 
 import "log"
 
-type dfsInfo struct {
+type bfsInfo struct {
 	graph  graph
 	target node
 	path   map[node]node
 }
 
-func dfs(g graph, x node) *dfsInfo {
-	p := &dfsInfo{
+func bfs(g graph, x node) *bfsInfo {
+	p := &bfsInfo{
 		graph:  g,
 		target: x,
 		path:   map[node]node{x: x},
@@ -19,7 +19,8 @@ func dfs(g graph, x node) *dfsInfo {
 	return p
 }
 
-func (p *dfsInfo) from(x node) path {
+// TODO: from and to is the same between dfs and bfs .. make interface
+func (p *bfsInfo) from(x node) path {
 	log.Printf("Find path from: %v -> %v | path: %v", x, p.target, p.path)
 	path := path{x}
 	if x == p.target {
@@ -27,7 +28,7 @@ func (p *dfsInfo) from(x node) path {
 	}
 
 	if _, ok := p.path[x]; !ok {
-		log.Printf("node %v not in dfs: %v", x, p.path)
+		log.Printf("node %v not in bfs: %v", x, p.path)
 		return nil
 	}
 
@@ -42,7 +43,7 @@ func (p *dfsInfo) from(x node) path {
 
 }
 
-func (p *dfsInfo) to(x node) path {
+func (p *bfsInfo) to(x node) path {
 	log.Printf("Find path to: %v from %v", x, p.target)
 	path := p.from(x)
 	if path != nil {
@@ -51,20 +52,30 @@ func (p *dfsInfo) to(x node) path {
 	return path
 }
 
-// traverse  builds dfs information for node x
+// traverse  builds bfs information for node x
 // internal
-func (p *dfsInfo) traverse(x node, v visited) {
+func (p *bfsInfo) traverse(x node, v visited) {
 	log.Printf("path: %v", p.path)
-	log.Printf("... mark %s visited", x)
-	v[x] = true
+	//log.Printf("... mark %s visited", x)
+	//v[x] = true
 
+	next := []node{}
 	for _, adj := range p.graph.adjacents(x) {
-		if v[adj] {
-			log.Printf("   >> %v SKIPPED", adj)
+		//if v[adj] {
+		//log.Printf("   >> %v SKIPPED", adj)
+		//continue
+		//}
+		if _, ok := p.path[adj]; ok {
+			log.Printf("   >> %v SKIPPED: already in path", adj)
 			continue
 		}
 		log.Printf("   >> %v -> %v", adj, x)
 		p.path[adj] = x
-		p.traverse(adj, v)
+		//v[adj] = true
+		next = append(next, adj)
+	}
+
+	for _, n := range next {
+		p.traverse(n, v)
 	}
 }

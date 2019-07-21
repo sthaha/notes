@@ -6,7 +6,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestSearch_dfs(t *testing.T) {
+func TestSearch_bfs(t *testing.T) {
 	// a - b - c - d
 	//  \    /
 	//   - m
@@ -29,21 +29,19 @@ func TestSearch_dfs(t *testing.T) {
 	//
 	g.connect("c", "d", 1)
 
-	route := dfs(g, "a")
+	route := bfs(g, "a")
 	assert.NotNil(t, route)
-
 	assert.Nil(t, route.to("foobar"))
 
 	assert.Equal(t, path{"a"}, route.from("a"))
 
-	// can take one of the path
+	fromM := route.from("m")
+	assert.Equal(t, path{"m", "a"}, fromM)
+
+	toD := route.to("d") // can be through b or m
 	assert.Contains(t, []path{
 		path{"a", "b", "c", "d"},
 		path{"a", "m", "c", "d"},
-	}, route.to("d"))
+	}, toD)
 
-	assert.Contains(t, []path{
-		path{"m", "c", "b", "a"},
-		path{"m", "a"},
-	}, route.from("m"))
 }

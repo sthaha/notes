@@ -1,0 +1,3 @@
+version: "2"
+domain: tutorial.builder.io
+repo: github.com/sthaha/notes

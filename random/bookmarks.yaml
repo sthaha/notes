@@ -4,7 +4,7 @@ bookmarks:
     tags: [gmail, filter, github, email, productivity]
 
   - url: https://www.youtube.com/watch?v=dC9vdQkU-xI
-    notes:  |
+    notes: |
       writing cleaner code; shows complicated fizzbuzz,
       better names
     tags: [clean-code, fizzbuzz, c++]
@@ -24,6 +24,11 @@ bookmarks:
   - url: https://www.linode.com/docs/security/ssl/install-lets-encrypt-to-create-ssl-certificates/
     notes: auto setup lets-encrypt
     tags: [lets-encrypt, nginx, linode, ansh]
+
   - url: https://iturbe.info/2017/10/the-command-line-productivity-triad-vimwiki-taskwarrior-timewarrior/
     notes: setting up taskwarrior and vimwiki
     tags: [taskwarrior, vimwiki, gtd]
+
+  - url: https://www.flocabulary.com/5th-grade-vocabulary-word-list/
+    notes: vocab by grade
+    tags: [vocabulary, grade]

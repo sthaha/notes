@@ -6,7 +6,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestSearch_bfs(t *testing.T) {
+func TestSearch_bfs_route(t *testing.T) {
 	// a - b - c - d
 	//  \    /
 	//   - m
@@ -43,5 +43,38 @@ func TestSearch_bfs(t *testing.T) {
 		path{"a", "b", "c", "d"},
 		path{"a", "m", "c", "d"},
 	}, toD)
+
+}
+
+func TestSearch_bfs_depth(t *testing.T) {
+	// a - b - c - d
+	//  \    /
+	//   - m
+	g := newUndirected()
+
+	// a - b
+	//  \
+	//   - m
+	g.connect("a", "b", 1)
+	g.connect("a", "m", 1)
+
+	//     b - c
+	//       /
+	//     m
+	g.connect("b", "c", 1)
+	g.connect("m", "c", 1)
+
+	//         c - d
+	//
+	//
+	g.connect("c", "d", 1)
+
+	route := bfs(g, "a")
+	_, err := route.depthTo("foobar")
+	assert.Error(t, errNodeNotFound, err)
+
+	d, err := route.depthTo("d")
+	assert.NoError(t, err)
+	assert.Equal(t, 3, d)
 
 }

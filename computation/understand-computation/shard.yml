@@ -1,0 +1,9 @@
+name: .
+version: 0.1.0
+
+authors:
+  - Sunil Thaha <3005132+sthaha@users.noreply.github.com>
+
+crystal: 0.29.0
+
+license: MIT

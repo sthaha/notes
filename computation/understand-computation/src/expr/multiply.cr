@@ -9,7 +9,7 @@ class Expr::Multiply < Expr::Op
   end
 
 
-  def reduce() : Expr::Add | Expr::Number
+  def reduce() : self | Expr::Number
     return Multiply.new(left.reduce, @right) if left.reducible?
     return Multiply.new(left, right.reduce) if right.reducible?
 

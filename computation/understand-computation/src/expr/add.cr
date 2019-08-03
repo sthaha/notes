@@ -12,7 +12,7 @@ class Expr::Add < Expr::Op
     io << "<< " << self << " >>"
   end
 
-  def reduce() : Expr::Add | Expr::Number
+  def reduce() : self | Expr::Number
     return Add.new(left.reduce, @right) if left.reducible?
     return Add.new(left, right.reduce) if right.reducible?
 

@@ -10,13 +10,31 @@ describe Vm::Machine do
     expr = Expr::Add.new(x, Expr::Add.new(x, x))
 
     vm = Vm::Machine.new(expr)
+    vm.expression.reducible?.should eq(true)
     vm.run
     # NOTE: second time it doesn't rerun the expression
+    vm.expression.reducible?.should eq(false)
     vm.run
+    vm.expression.as(Expr::Value).value.should eq(42)
 
   end
 
-  it "can reduce an expression" do
+  it "can only evaluate left to right" do
+    # 2 + 3 x 5 + 4 should be 19 but gets 45 due to left -> right eval
+    expr =  Expr::Multiply.new(
+      Expr::Add.new(
+        Expr::Number.new(2),
+          Expr::Number.new(3),
+      ),
+      Expr::Add.new(
+        Expr::Number.new(5),
+          Expr::Number.new(4),
+      ),
+    )
+
+    vm = Vm::Machine.new(expr)
+    vm.run
+    vm.expression.as(Expr::Value).value.should_not eq(19)
   end
 end
 

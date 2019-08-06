@@ -12,9 +12,9 @@ class Expr::Add < Expr::Op
     io << "<< " << self << " >>"
   end
 
-  def reduce() : self | Expr::Number
-    return Add.new(left.reduce, @right) if left.reducible?
-    return Add.new(left, right.reduce) if right.reducible?
+  def reduce(env) : self | Expr::Number
+    return Add.new(left.reduce(env), @right) if left.reducible?
+    return Add.new(left, right.reduce(env)) if right.reducible?
 
     l = @left.as Expr::Value
     r = @right.as Expr::Value

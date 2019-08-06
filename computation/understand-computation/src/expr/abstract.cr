@@ -1,9 +1,8 @@
 abstract class Expr::Any
   abstract def reducible? : Bool
-  abstract def reduce
+  abstract def reduce(env)
 
   abstract def to_s(io : IO)
-  abstract def inspect(io : IO)
 
   def inspect(io : IO)
     io << "<< " << self << " >>"
@@ -21,7 +20,7 @@ abstract class Expr::Value < Expr::Any
     return false
   end
 
-  def reduce
+  def reduce(env)
     return self
   end
 
@@ -29,7 +28,7 @@ end
 
 
 abstract class Expr::Op < Expr::Any
-  abstract def reduce : Expr::Op | Expr::Value
+  abstract def reduce(env) : Expr::Op | Expr::Value
 
   def reducible?
     true
@@ -37,3 +36,4 @@ abstract class Expr::Op < Expr::Any
 end
 
 alias OpOrNum = Expr::Op | Expr::Number
+

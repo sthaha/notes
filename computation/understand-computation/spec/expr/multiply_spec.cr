@@ -1,5 +1,6 @@
 require "./expr_helper"
 
+EMPTY = {} of String => Expr::Any
 
 describe Expr::Multiply do
   it "prints fine" do
@@ -7,7 +8,7 @@ describe Expr::Multiply do
       Expr::Number.new(11),
       Expr::Number.new(31),
     )
-    "#{x}".should eq("11 x 31")
+    "#{x}".should eq("11 * 31")
   end
 
   it "can be reduced" do
@@ -16,7 +17,7 @@ describe Expr::Multiply do
       Expr::Number.new(31),
     )
 
-    x.reduce.as(Expr::Number).value.should eq(341)
+    x.reduce(EMPTY).as(Expr::Number).value.should eq(341)
   end
 
   it "can be reduced multiple times" do
@@ -26,32 +27,30 @@ describe Expr::Multiply do
     )
     x.reducible?.should eq(true)
 
-    res = Expr::Multiply.new(x, x)
+    expr = Expr::Multiply.new(x, x)
 
-    "#{res}".should eq("10 x 11 x 10 x 11")
-    res.reducible?.should eq(true)
+    "#{expr}".should eq("10 * 11 * 10 * 11")
+    expr.reducible?.should eq(true)
 
-    res.reduce.reducible?.should eq(true)
-    res.reduce.reduce.reducible?.should eq(true)
-    res.reduce.reduce.reduce.reducible?.should eq(false)
+    expr.reduce(EMPTY).reducible?.should eq(true)
+    expr.reduce(EMPTY).reduce(EMPTY).reducible?.should eq(true)
+    res = expr.reduce(EMPTY).reduce(EMPTY).reduce(EMPTY)
+    res.reducible?.should eq(false)
 
-    res.reduce.reduce.reduce.as(Expr::Number).value.should eq(12_100)
+    res.as(Expr::Number).value.should eq(12_100)
 
   end
 
   it "can be reduced until it is a number" do
-    x = Expr::Multiply.new(
-      Expr::Number.new(5),
-      Expr::Number.new(8),
-    )
+    x = Expr::Multiply.new( Expr::Number.new(5), Expr::Number.new(8))
     x.reducible?.should eq(true)
 
     expr = Expr::Multiply.new(x, Expr::Multiply.new(x, x))
     while expr.reducible?
-      expr = expr.reduce
+      expr = expr.reduce(EMPTY)
     end
 
-    # 40 x 40 x 40
+    # 40 * 40 * 40
     expr.as(Expr::Number).value.should eq(64_000)
   end
 

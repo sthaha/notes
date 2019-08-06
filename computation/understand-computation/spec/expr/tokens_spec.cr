@@ -23,7 +23,7 @@ describe Expr::Add do
       Expr::Number.new(31),
     )
 
-    x.reduce.as(Expr::Number).value.should eq(42)
+    x.reduce(EMPTY).as(Expr::Number).value.should eq(42)
   end
 
   it "can be reduced multiple times" do
@@ -33,16 +33,17 @@ describe Expr::Add do
     )
     x.reducible?.should eq(true)
 
-    res = Expr::Add.new(x, x)
+    expr = Expr::Add.new(x, x)
 
-    "#{res}".should eq("10 + 11 + 10 + 11")
-    res.reducible?.should eq(true)
+    "#{expr}".should eq("10 + 11 + 10 + 11")
+    expr.reducible?.should eq(true)
 
-    res.reduce.reducible?.should eq(true)
-    res.reduce.reduce.reducible?.should eq(true)
-    res.reduce.reduce.reduce.reducible?.should eq(false)
+    expr.reduce(EMPTY).reducible?.should eq(true)
+    expr.reduce(EMPTY).reduce(EMPTY).reducible?.should eq(true)
+    res = expr.reduce(EMPTY).reduce(EMPTY).reduce(EMPTY)
+    res.reducible?.should eq(false)
 
-    res.reduce.reduce.reduce.as(Expr::Number).value.should eq(42)
+    res.as(Expr::Number).value.should eq(42)
 
   end
 
@@ -58,7 +59,7 @@ describe Expr::Add do
     puts "\n\n\texpr: #{expr}"
     while expr.reducible?
       puts "\t    : #{expr}"
-      expr = expr.reduce
+      expr = expr.reduce(EMPTY)
     end
 
     expr.as(Expr::Number).value.should eq(42)

@@ -1,0 +1,13 @@
+name: group-find
+version: 0.1.0
+
+authors:
+  - Sunil Thaha <3005132+sthaha@users.noreply.github.com>
+
+targets:
+  group-find:
+    main: src/group-find.cr
+
+crystal: 0.29.0
+
+license: MIT

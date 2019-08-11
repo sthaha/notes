@@ -5,9 +5,9 @@ import (
 )
 
 var (
-	errNodeExists   = errors.New("node already exists")
-	errNodeNotFound = errors.New("node does not exist")
-	errNotAdjacent  = errors.New("nodes are non adjacent")
+	ErrNodeExists   = errors.New("node already exists")
+	ErrNodeNotFound = errors.New("node does not exist")
+	ErrNotAdjacent  = errors.New("nodes are non adjacent")
 )
 
 type Node interface{}

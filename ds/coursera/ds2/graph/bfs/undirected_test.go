@@ -1,8 +1,9 @@
-package graph
+package bfs
 
 import (
 	"testing"
 
+	"github.com/sthaha/ds/graph"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -10,38 +11,38 @@ func TestSearch_bfs_route(t *testing.T) {
 	// a - b - c - d
 	//  \    /
 	//   - m
-	g :=  &undirected{}
+	g := &graph.Undirected{}
 
 	// a - b
 	//  \
 	//   - m
-	g.connect("a", "b")
-	g.connect("a", "m")
+	g.Connect("a", "b")
+	g.Connect("a", "m")
 
 	//     b - c
 	//       /
 	//     m
-	g.connect("b", "c")
-	g.connect("m", "c")
+	g.Connect("b", "c")
+	g.Connect("m", "c")
 
 	//         c - d
 	//
 	//
-	g.connect("c", "d")
+	g.Connect("c", "d")
 
-	route := bfs(g, "a")
+	route := ForUndirected(g, "a")
 	assert.NotNil(t, route)
 	assert.Nil(t, route.to("foobar"))
 
-	assert.Equal(t, path{"a"}, route.from("a"))
+	assert.Equal(t, graph.Path{"a"}, route.from("a"))
 
 	fromM := route.from("m")
-	assert.Equal(t, path{"m", "a"}, fromM)
+	assert.Equal(t, graph.Path{"m", "a"}, fromM)
 
 	toD := route.to("d") // can be through b or m
-	assert.Contains(t, []path{
-		path{"a", "b", "c", "d"},
-		path{"a", "m", "c", "d"},
+	assert.Contains(t, []graph.Path{
+		graph.Path{"a", "b", "c", "d"},
+		graph.Path{"a", "m", "c", "d"},
 	}, toD)
 
 }
@@ -50,28 +51,28 @@ func TestSearch_bfs_depth(t *testing.T) {
 	// a - b - c - d
 	//  \    /
 	//   - m
-	g :=  &undirected{}
+	g := &graph.Undirected{}
 
 	// a - b
 	//  \
 	//   - m
-	g.connect("a", "b")
-	g.connect("a", "m")
+	g.Connect("a", "b")
+	g.Connect("a", "m")
 
 	//     b - c
 	//       /
 	//     m
-	g.connect("b", "c")
-	g.connect("m", "c")
+	g.Connect("b", "c")
+	g.Connect("m", "c")
 
 	//         c - d
 	//
 	//
-	g.connect("c", "d")
+	g.Connect("c", "d")
 
-	route := bfs(g, "a")
+	route := ForUndirected(g, "a")
 	_, err := route.depthTo("foobar")
-	assert.Error(t, errNodeNotFound, err)
+	assert.Error(t, graph.ErrNodeNotFound, err)
 
 	d, err := route.depthTo("d")
 	assert.NoError(t, err)

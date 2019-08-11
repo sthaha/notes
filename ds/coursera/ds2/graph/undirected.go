@@ -30,7 +30,7 @@ func (g *Undirected) Contains(x Node) bool {
 func (g *Undirected) AddNode(x Node) error {
 	g.init()
 	if g.Contains(x) {
-		return errNodeExists
+		return ErrNodeExists
 	}
 
 	g.graph[x] = &nodeset{}

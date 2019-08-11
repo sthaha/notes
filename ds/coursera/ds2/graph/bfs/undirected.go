@@ -1,24 +1,25 @@
-package graph
+package bfs
 
 import (
 	"log"
 
+	"github.com/sthaha/ds/graph"
 	"github.com/sthaha/ds/queue"
 )
 
 type bfsInfo struct {
-	graph  graph
-	target node
-	path   map[node]node
-	depth  map[node]int
+	graph  graph.Graph
+	target graph.Node
+	path   map[graph.Node]graph.Node
+	depth  map[graph.Node]int
 }
 
-func bfs(g graph, x node) *bfsInfo {
+func ForUndirected(g *graph.Undirected, x graph.Node) *bfsInfo {
 	p := &bfsInfo{
 		graph:  g,
 		target: x,
-		path:   map[node]node{x: x},
-		depth:  map[node]int{},
+		path:   map[graph.Node]graph.Node{x: x},
+		depth:  map[graph.Node]int{},
 	}
 
 	p.traverse()
@@ -26,25 +27,25 @@ func bfs(g graph, x node) *bfsInfo {
 	return p
 }
 
-func (p *bfsInfo) depthTo(x node) (int, error) {
+func (p *bfsInfo) depthTo(x graph.Node) (int, error) {
 	d, ok := p.depth[x]
 	if !ok {
-		log.Printf("node %v not in bfs: %v", x, p.path)
-		return -1, errNodeNotFound
+		log.Printf("graph.Node %v not in bfs: %v", x, p.path)
+		return -1, graph.ErrNodeNotFound
 	}
 	return d, nil
 }
 
 // TODO: from and to is the same between dfs and bfs .. make interface
-func (p *bfsInfo) from(x node) path {
+func (p *bfsInfo) from(x graph.Node) graph.Path {
 	log.Printf("Find path from: %v -> %v | path: %v", x, p.target, p.path)
-	path := path{x}
+	path := graph.Path{x}
 	if x == p.target {
 		return path
 	}
 
 	if _, ok := p.path[x]; !ok {
-		log.Printf("node %v not in bfs: %v", x, p.path)
+		log.Printf("graph.Node %v not in bfs: %v", x, p.path)
 		return nil
 	}
 
@@ -59,11 +60,11 @@ func (p *bfsInfo) from(x node) path {
 
 }
 
-func (p *bfsInfo) to(x node) path {
+func (p *bfsInfo) to(x graph.Node) graph.Path {
 	log.Printf("Find path to: %v from %v", x, p.target)
 	path := p.from(x)
 	if path != nil {
-		path.reverse()
+		path.Reverse()
 	}
 	return path
 }
@@ -80,7 +81,7 @@ func (p *bfsInfo) traverse() {
 
 		log.Printf("   >> %v  traversing at %d", x, depth)
 
-		for _, adj := range p.graph.adjacents(x) {
+		for _, adj := range p.graph.Adjacents(x) {
 			if _, ok := p.path[adj]; ok {
 				log.Printf("     >> %v SKIPPED: already in path", adj)
 				continue
@@ -94,14 +95,14 @@ func (p *bfsInfo) traverse() {
 	}
 }
 
-// traverse  builds bfs information for node x
+// traverse  builds bfs information for graph.Node x
 // internal
-func (p *bfsInfo) traverseRecursive(x node) {
+func (p *bfsInfo) traverseRecursive(x graph.Node) {
 	log.Printf("path: %v", p.path)
 	log.Printf("... mark %s visited", x)
 
-	next := []node{}
-	for _, adj := range p.graph.adjacents(x) {
+	next := []graph.Node{}
+	for _, adj := range p.graph.Adjacents(x) {
 		if _, ok := p.path[adj]; ok {
 			log.Printf("   >> %v SKIPPED: already in path", adj)
 			continue

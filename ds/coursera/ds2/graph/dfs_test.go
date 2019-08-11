@@ -10,7 +10,7 @@ func TestSearch_dfs(t *testing.T) {
 	// a - b - c - d
 	//  \    /
 	//   - m
-	g :=  &undirected{}
+	g := &undirected{}
 
 	// a - b
 	//  \
@@ -29,7 +29,7 @@ func TestSearch_dfs(t *testing.T) {
 	//
 	g.connect("c", "d")
 
-	route := dfs(g, "a")
+	route := undirectedDFS(g, "a")
 	assert.NotNil(t, route)
 
 	assert.Nil(t, route.to("foobar"))

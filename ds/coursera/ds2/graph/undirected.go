@@ -1,5 +1,10 @@
 package graph
 
+import (
+	"fmt"
+	"strings"
+)
+
 type undirected struct {
 	graph connections
 }
@@ -62,4 +67,15 @@ func (g *undirected) adjacents(x node) []node {
 	}
 
 	return g.graph[x].keys()
+}
+
+func (g *undirected) toString() string {
+	out := &strings.Builder{}
+
+	for _, n := range g.nodes() {
+		for _, adj := range g.adjacents(n) {
+			out.WriteString(fmt.Sprintf("%v - %v\n", n, adj))
+		}
+	}
+	return out.String()
 }

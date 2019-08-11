@@ -2,14 +2,14 @@ package graph
 
 import "log"
 
-type dfsInfo struct {
+type directedDfsInfo struct {
 	graph     graph
 	origin    node
 	wayPoints map[node]node
 }
 
-func undirectedDFS(g *undirected, x node) *dfsInfo {
-	d := &dfsInfo{
+func directedDFS(g *directed, x node) *directedDfsInfo {
+	d := &directedDfsInfo{
 		graph:     g,
 		origin:    x,
 		wayPoints: map[node]node{x: x},
@@ -19,41 +19,37 @@ func undirectedDFS(g *undirected, x node) *dfsInfo {
 	return d
 }
 
-func (d *dfsInfo) from(x node) path {
+func (d *directedDfsInfo) to(x node) path {
 	log.Printf("Find path from: %v -> %v | path: %v", x, d.origin, d.wayPoints)
-	path := path{x}
+	route := path{x}
 	if x == d.origin {
-		return path
+		return route
 	}
 
-	if _, ok := d.wayPoints[x]; !ok {
+	if !d.isReachable(x) {
 		log.Printf("node %v not in dfs: %v", x, d.wayPoints)
 		return nil
 	}
 
 	for {
-		log.Printf("   > %v |  path: %v", x, path)
+		log.Printf("   > %v |  path: %v", x, route)
 		x = d.wayPoints[x]
-		path = append(path, x)
+		route = append(path{x}, route...)
 		if x == d.origin {
-			return path
+			break
 		}
 	}
-
+	return route
 }
 
-func (d *dfsInfo) to(x node) path {
-	log.Printf("Find path to: %v from %v", x, d.origin)
-	path := d.from(x)
-	if path != nil {
-		path.reverse()
-	}
-	return path
+func (d *directedDfsInfo) isReachable(x node) bool {
+	_, ok := d.wayPoints[x]
+	return ok
 }
 
 // traverse  builds dfs information for node x
 // internal
-func (d *dfsInfo) traverse(x node, v visited) {
+func (d *directedDfsInfo) traverse(x node, v visited) {
 	log.Printf("path: %v", d.wayPoints)
 	log.Printf("... mark %s visited", x)
 	v[x] = true

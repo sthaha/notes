@@ -2,8 +2,6 @@ package graph
 
 import (
 	"errors"
-	"fmt"
-	"strings"
 )
 
 var (
@@ -27,17 +25,7 @@ type graph interface {
 	adjacents(x node) []node
 
 	contains(x node) bool
-}
-
-func print(g graph) string {
-	out := &strings.Builder{}
-
-	for _, n := range g.nodes() {
-		for _, adj := range g.adjacents(n) {
-			out.WriteString(fmt.Sprintf("%v - %v\n", n, adj))
-		}
-	}
-	return out.String()
+	toString() string
 }
 
 // ## algorithms

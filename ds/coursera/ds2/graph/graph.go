@@ -22,72 +22,14 @@ type connections map[node]*nodeset
 
 type graph interface {
 	addNode(x node) error
+	size() int
 	nodes() []node
+	adjacents(x node) []node
 
-	adjacents(n node) []node
+	contains(x node) bool
 }
 
-type undirected struct {
-	graph connections
-}
-
-func newUndirected() *undirected {
-	return &undirected{
-		graph: connections{},
-	}
-}
-
-func (g *undirected) addNode(x node) error {
-	if g.contains(x) {
-		return errNodeExists
-	}
-
-	g.graph[x] = &nodeset{}
-	return nil
-}
-
-func (g *undirected) size() int {
-	return len(g.graph)
-}
-
-func (g *undirected) connect(a, b node) error {
-
-	g.addNode(a)
-	g.addNode(b)
-	g.graph[a].add(b)
-	g.graph[b].add(a)
-	return nil
-}
-
-func (g *undirected) contains(x node) bool {
-	_, ok := g.graph[x]
-	return ok
-}
-
-func (g *undirected) isAdjascent(a, b node) bool {
-	if !g.contains(a) || !g.contains(b) {
-		return false
-	}
-	return g.graph[a].has(b)
-}
-
-func (g *undirected) nodes() []node {
-	keys := make([]node, 0, len(g.graph))
-	for k := range g.graph {
-		keys = append(keys, k)
-	}
-	return keys
-}
-
-func (g *undirected) adjacents(x node) []node {
-	if !g.contains(x) {
-		return []node{}
-	}
-
-	return g.graph[x].keys()
-}
-
-func printGraph(g *undirected) string {
+func print(g graph) string {
 	out := &strings.Builder{}
 
 	for _, n := range g.nodes() {

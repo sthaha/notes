@@ -7,7 +7,7 @@ import (
 )
 
 func TestAddNode(t *testing.T) {
-	g := newUndirected()
+	g :=  &undirected{}
 	assert.Equal(t, 0, g.size())
 
 	g.addNode(1)
@@ -18,7 +18,7 @@ func TestAddNode(t *testing.T) {
 }
 
 func TestAddNode_same_error(t *testing.T) {
-	g := newUndirected()
+	g :=  &undirected{}
 	assert.Equal(t, 0, g.size())
 
 	g.addNode(1)
@@ -33,7 +33,7 @@ func TestAddNode_same_error(t *testing.T) {
 }
 
 func TestContains(t *testing.T) {
-	g := newUndirected()
+	g :=  &undirected{}
 	assert.Equal(t, 0, g.size())
 	assert.False(t, g.contains(1))
 
@@ -43,7 +43,7 @@ func TestContains(t *testing.T) {
 }
 
 func TestConnect(t *testing.T) {
-	g := newUndirected()
+	g :=  &undirected{}
 
 	g.addNode("alice")
 	g.addNode("bob")
@@ -54,7 +54,7 @@ func TestConnect(t *testing.T) {
 }
 
 func TestGraph_adjacents(t *testing.T) {
-	g := newUndirected()
+	g :=  &undirected{}
 	// a - b - c - d
 	//  \    /
 	//   - m
@@ -74,7 +74,7 @@ func TestGraph_adjacents(t *testing.T) {
 }
 
 func TestGraph_self_loop(t *testing.T) {
-	g := newUndirected()
+	g :=  &undirected{}
 	// a - b - c - d
 	//  \    /
 	//   - m

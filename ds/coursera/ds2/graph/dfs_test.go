@@ -10,7 +10,7 @@ func TestSearch_dfs(t *testing.T) {
 	// a - b - c - d
 	//  \    /
 	//   - m
-	g := newUndirected()
+	g :=  &undirected{}
 
 	// a - b
 	//  \

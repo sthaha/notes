@@ -10,7 +10,7 @@ func TestGroup_create(t *testing.T) {
 	// a - b - c - d
 	//  \    /
 	//   - m
-	g := newUndirected()
+	g :=  &undirected{}
 
 	// a - b
 	//  \
@@ -38,7 +38,7 @@ func TestGroup_2_groups(t *testing.T) {
 	// a - b - c - d
 	//  \    /
 	//   - m
-	g := newUndirected()
+	g :=  &undirected{}
 
 	// a - b
 	//  \
@@ -66,7 +66,7 @@ func TestGroup_2_groups(t *testing.T) {
 }
 
 func TestGroup_same(t *testing.T) {
-	g := newUndirected()
+	g :=  &undirected{}
 	// a - b - c - d
 	g.connect("a", "b")
 	g.connect("b", "c")

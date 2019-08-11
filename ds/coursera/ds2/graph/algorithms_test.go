@@ -10,7 +10,7 @@ func TestDegree(t *testing.T) {
 	// a - b - c - d
 	//  \    /
 	//   - m
-	g := newUndirected()
+	g := &undirected{}
 	g.connect("a", "b")
 	g.connect("a", "m")
 
@@ -28,7 +28,7 @@ func TestMaxDegree(t *testing.T) {
 	// a - b - c - d
 	//  \    /
 	//   - m
-	g := newUndirected()
+	g := &undirected{}
 	g.connect("a", "b")
 	g.connect("a", "m")
 

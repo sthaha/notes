@@ -10,7 +10,7 @@ func TestSearch_bfs_route(t *testing.T) {
 	// a - b - c - d
 	//  \    /
 	//   - m
-	g := newUndirected()
+	g :=  &undirected{}
 
 	// a - b
 	//  \
@@ -50,7 +50,7 @@ func TestSearch_bfs_depth(t *testing.T) {
 	// a - b - c - d
 	//  \    /
 	//   - m
-	g := newUndirected()
+	g :=  &undirected{}
 
 	// a - b
 	//  \

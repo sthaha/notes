@@ -11,13 +11,13 @@ func TestDegree(t *testing.T) {
 	//  \    /
 	//   - m
 	g := newUndirected()
-	g.connect("a", "b", 1)
-	g.connect("a", "m", 1)
+	g.connect("a", "b")
+	g.connect("a", "m")
 
-	g.connect("b", "c", 1)
-	g.connect("m", "c", 1)
+	g.connect("b", "c")
+	g.connect("m", "c")
 
-	g.connect("c", "d", 1)
+	g.connect("c", "d")
 
 	assert.Equal(t, 3, degree(g, "c"))
 	assert.Equal(t, 2, degree(g, "a"))
@@ -29,13 +29,13 @@ func TestMaxDegree(t *testing.T) {
 	//  \    /
 	//   - m
 	g := newUndirected()
-	g.connect("a", "b", 1)
-	g.connect("a", "m", 1)
+	g.connect("a", "b")
+	g.connect("a", "m")
 
-	g.connect("b", "c", 1)
-	g.connect("m", "c", 1)
+	g.connect("b", "c")
+	g.connect("m", "c")
 
-	g.connect("c", "d", 1)
+	g.connect("c", "d")
 
 	assert.Equal(t, 3, maxDegree(g))
 }

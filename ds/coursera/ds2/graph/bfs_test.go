@@ -15,19 +15,19 @@ func TestSearch_bfs_route(t *testing.T) {
 	// a - b
 	//  \
 	//   - m
-	g.connect("a", "b", 1)
-	g.connect("a", "m", 1)
+	g.connect("a", "b")
+	g.connect("a", "m")
 
 	//     b - c
 	//       /
 	//     m
-	g.connect("b", "c", 1)
-	g.connect("m", "c", 1)
+	g.connect("b", "c")
+	g.connect("m", "c")
 
 	//         c - d
 	//
 	//
-	g.connect("c", "d", 1)
+	g.connect("c", "d")
 
 	route := bfs(g, "a")
 	assert.NotNil(t, route)
@@ -55,19 +55,19 @@ func TestSearch_bfs_depth(t *testing.T) {
 	// a - b
 	//  \
 	//   - m
-	g.connect("a", "b", 1)
-	g.connect("a", "m", 1)
+	g.connect("a", "b")
+	g.connect("a", "m")
 
 	//     b - c
 	//       /
 	//     m
-	g.connect("b", "c", 1)
-	g.connect("m", "c", 1)
+	g.connect("b", "c")
+	g.connect("m", "c")
 
 	//         c - d
 	//
 	//
-	g.connect("c", "d", 1)
+	g.connect("c", "d")
 
 	route := bfs(g, "a")
 	_, err := route.depthTo("foobar")

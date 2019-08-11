@@ -5,22 +5,22 @@ import (
 	"strings"
 )
 
-type directed struct {
-	undirected
+type Directed struct {
+	Undirected
 }
 
-func (g *directed) connect(a, b node) error {
-	g.addNode(a)
-	g.addNode(b)
+func (g *Directed) Connect(a, b Node) error {
+	g.AddNode(a)
+	g.AddNode(b)
 	g.graph[a].add(b)
 	return nil
 }
 
-func (g *directed) toString() string {
+func (g *Directed) ToString() string {
 	out := &strings.Builder{}
 
-	for _, n := range g.nodes() {
-		for _, adj := range g.adjacents(n) {
+	for _, n := range g.Nodes() {
+		for _, adj := range g.Adjacents(n) {
 			out.WriteString(fmt.Sprintf("%v -> %v\n", n, adj))
 		}
 	}

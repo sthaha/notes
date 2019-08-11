@@ -10,22 +10,22 @@ var (
 	errNotAdjacent  = errors.New("nodes are non adjacent")
 )
 
-type node interface{}
+type Node interface{}
 
 // b : 8
 //type nodeWeight map[node]int
 
 // a : b : 8 -> a is connected to b with a weight of 8
-type connections map[node]*nodeset
+type connections map[Node]*nodeset
 
-type graph interface {
-	addNode(x node) error
-	size() int
-	nodes() []node
-	adjacents(x node) []node
+type Graph interface {
+	AddNode(x Node) error
+	Size() int
+	Nodes() []Node
+	Adjacents(x Node) []Node
 
-	contains(x node) bool
-	toString() string
+	Contains(x Node) bool
+	ToString() string
 }
 
 // ## algorithms

@@ -2,16 +2,16 @@ package graph
 
 import "log"
 
-type lookup map[node]node
+type lookup map[Node]Node
 
-func (lookup lookup) from(x, target node) path {
+func (lookup lookup) from(x, target Node) Path {
 	log.Printf("Find path from: %v -> %v | lookup: %v", x, target, lookup)
 	if _, ok := lookup[x]; !ok {
 		log.Printf("node %v not in lookup: %v", x, lookup)
 		return nil
 	}
 
-	path := path{x}
+	path := Path{x}
 	if x == target {
 		return path
 	}

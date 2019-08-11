@@ -10,24 +10,24 @@ func TestGroup_create(t *testing.T) {
 	// a - b - c - d
 	//  \    /
 	//   - m
-	g :=  &undirected{}
+	g := &Undirected{}
 
 	// a - b
 	//  \
 	//   - m
-	g.connect("a", "b")
-	g.connect("a", "m")
+	g.Connect("a", "b")
+	g.Connect("a", "m")
 
 	//     b - c
 	//       /
 	//     m
-	g.connect("b", "c")
-	g.connect("m", "c")
+	g.Connect("b", "c")
+	g.Connect("m", "c")
 
 	//         c - d
 	//
 	//
-	g.connect("c", "d")
+	g.Connect("c", "d")
 
 	grp := groups(g)
 	assert.Equal(t, 1, grp.count())
@@ -38,27 +38,27 @@ func TestGroup_2_groups(t *testing.T) {
 	// a - b - c - d
 	//  \    /
 	//   - m
-	g :=  &undirected{}
+	g := &Undirected{}
 
 	// a - b
 	//  \
 	//   - m
-	g.connect("a", "b")
-	g.connect("a", "m")
+	g.Connect("a", "b")
+	g.Connect("a", "m")
 
 	//     b - c
 	//       /
 	//     m
-	g.connect("b", "c")
-	g.connect("m", "c")
+	g.Connect("b", "c")
+	g.Connect("m", "c")
 
 	//         c - d
 	//
 	//
-	g.connect("c", "d")
+	g.Connect("c", "d")
 
-	g.connect("x", "y")
-	g.connect("x", "z")
+	g.Connect("x", "y")
+	g.Connect("x", "z")
 
 	grp := groups(g)
 	assert.Equal(t, 2, grp.count())
@@ -66,29 +66,29 @@ func TestGroup_2_groups(t *testing.T) {
 }
 
 func TestGroup_same(t *testing.T) {
-	g :=  &undirected{}
+	g := &Undirected{}
 	// a - b - c - d
-	g.connect("a", "b")
-	g.connect("b", "c")
-	g.connect("c", "d")
+	g.Connect("a", "b")
+	g.Connect("b", "c")
+	g.Connect("c", "d")
 
 	// a - * - c
 	//  \    /
 	//   - f
-	g.connect("a", "f")
-	g.connect("f", "c")
+	g.Connect("a", "f")
+	g.Connect("f", "c")
 
-	g.connect("x", "y")
-	g.connect("x", "z")
+	g.Connect("x", "y")
+	g.Connect("x", "z")
 
-	g.connect("m", "n")
-	g.connect("n", "o")
+	g.Connect("m", "n")
+	g.Connect("n", "o")
 
 	grp := groups(g)
 	assert.Equal(t, 3, grp.count())
 
 	assert.True(t, grp.same("a", "c"))
-	assert.True(t, grp.same("a", "c", g.adjacents("d")...))
+	assert.True(t, grp.same("a", "c", g.Adjacents("d")...))
 
 	assert.False(t, grp.same("a", "x"))
 }

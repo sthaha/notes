@@ -1,33 +1,39 @@
-package graph
+package dfs
 
-import "log"
+import (
+	"log"
 
-type dfsInfo struct {
-	graph     graph
-	origin    node
-	wayPoints map[node]node
+	"github.com/sthaha/ds/graph"
+)
+
+type visited map[graph.Node]bool
+
+type Undirected struct {
+	graph     graph.Graph
+	origin    graph.Node
+	wayPoints map[graph.Node]graph.Node
 }
 
-func undirectedDFS(g *undirected, x node) *dfsInfo {
-	d := &dfsInfo{
+func ForUndirected(g *graph.Undirected, x graph.Node) *Undirected {
+	d := &Undirected{
 		graph:     g,
 		origin:    x,
-		wayPoints: map[node]node{x: x},
+		wayPoints: map[graph.Node]graph.Node{x: x},
 	}
 	d.traverse(x, visited{})
 	log.Printf("way-points: %v", d.wayPoints)
 	return d
 }
 
-func (d *dfsInfo) from(x node) path {
+func (d *Undirected) From(x graph.Node) graph.Path {
 	log.Printf("Find path from: %v -> %v | path: %v", x, d.origin, d.wayPoints)
-	path := path{x}
+	path := graph.Path{x}
 	if x == d.origin {
 		return path
 	}
 
 	if _, ok := d.wayPoints[x]; !ok {
-		log.Printf("node %v not in dfs: %v", x, d.wayPoints)
+		log.Printf("graph.Node %v not in dfs: %v", x, d.wayPoints)
 		return nil
 	}
 
@@ -42,23 +48,23 @@ func (d *dfsInfo) from(x node) path {
 
 }
 
-func (d *dfsInfo) to(x node) path {
+func (d *Undirected) To(x graph.Node) graph.Path {
 	log.Printf("Find path to: %v from %v", x, d.origin)
-	path := d.from(x)
+	path := d.From(x)
 	if path != nil {
-		path.reverse()
+		path.Reverse()
 	}
 	return path
 }
 
-// traverse  builds dfs information for node x
+// traverse  builds dfs information for graph.Node x
 // internal
-func (d *dfsInfo) traverse(x node, v visited) {
+func (d *Undirected) traverse(x graph.Node, v visited) {
 	log.Printf("path: %v", d.wayPoints)
 	log.Printf("... mark %s visited", x)
 	v[x] = true
 
-	for _, adj := range d.graph.adjacents(x) {
+	for _, adj := range d.graph.Adjacents(x) {
 		if v[adj] {
 			log.Printf("   >> %v SKIPPED", adj)
 			continue

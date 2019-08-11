@@ -7,15 +7,15 @@ import (
 )
 
 type groupInfo struct {
-	graph  graph
-	info   map[node]int
+	graph  Graph
+	info   map[Node]int
 	groups int
 }
 
-func groups(g graph) *groupInfo {
+func groups(g Graph) *groupInfo {
 	grp := &groupInfo{
 		graph: g,
-		info:  map[node]int{},
+		info:  map[Node]int{},
 	}
 	grp.traverse()
 	return grp
@@ -25,7 +25,7 @@ func (g *groupInfo) count() int {
 	return g.groups
 }
 
-func (g *groupInfo) same(first, second node, rest ...node) bool {
+func (g *groupInfo) same(first, second Node, rest ...Node) bool {
 	group := g.info[first]
 	if g.info[second] != group {
 		return false
@@ -40,9 +40,9 @@ func (g *groupInfo) same(first, second node, rest ...node) bool {
 }
 
 func (g *groupInfo) traverse() {
-	for _, n := range g.graph.nodes() {
+	for _, n := range g.graph.Nodes() {
 		if _, ok := g.info[n]; ok {
-			log.Printf("Already traversed node: %v", n)
+			log.Printf("Already traversed Node: %v", n)
 			continue
 		}
 		g.bfs(n)
@@ -50,7 +50,7 @@ func (g *groupInfo) traverse() {
 	}
 }
 
-func (g *groupInfo) bfs(n node) {
+func (g *groupInfo) bfs(n Node) {
 	q := queue.Queue{}
 	g.info[n] = g.groups
 	q.Push(n)
@@ -59,7 +59,7 @@ func (g *groupInfo) bfs(n node) {
 		x, _ := q.Pop()
 		log.Printf("   >> %v  traversing group %d", x, g.groups)
 
-		for _, adj := range g.graph.adjacents(x) {
+		for _, adj := range g.graph.Adjacents(x) {
 			if _, ok := g.info[adj]; !ok {
 				g.info[adj] = g.groups
 				q.Push(adj)

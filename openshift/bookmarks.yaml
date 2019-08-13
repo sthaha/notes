@@ -21,3 +21,7 @@
     This should have been the first or one of the first videos I should have
     watched.
   tags: [k8s, api, design, why]
+- url: https://github.com/kubernetes/sample-controller/blob/master/docs/controller-client-go.md
+  notes: >
+    explains client-go architecture and components
+  tags: [k8s, client-go]

@@ -13,8 +13,8 @@ class Expr::Multiply < Expr::Op
     return Multiply.new(left.reduce(env), @right) if left.reducible?
     return Multiply.new(left, right.reduce(env)) if right.reducible?
 
-    l = @left.as Expr::Value
-    r = @right.as Expr::Value
+    l = @left.as Expr::Number
+    r = @right.as Expr::Number
     return Number.new(l.value * r.value)
   end
 

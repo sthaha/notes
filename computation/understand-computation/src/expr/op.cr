@@ -1,4 +1,3 @@
-
 abstract class Expr::Op < Expr::Any
   abstract def reduce(env) : Expr::Op | Expr::Value | Expr::Bool
 

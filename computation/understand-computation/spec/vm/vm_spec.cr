@@ -7,12 +7,12 @@ describe Vm::Machine do
     expr = Expr::Add.new(x, Expr::Add.new(x, x))
 
     vm = Vm::Machine.new(expr, Vm::EMPTY_ENV)
-    vm.expression.reducible?.should eq(true)
+    vm.expression.reducible?.should be_true
     vm.run
     # NOTE: second time it doesn't rerun the expression
-    vm.expression.reducible?.should eq(false)
+    vm.expression.reducible?.should be_false
     vm.run
-    vm.expression.as(Expr::Value).value.should eq(42)
+    vm.expression.as(Expr::Number).value.should eq(42)
 
   end
 
@@ -43,5 +43,4 @@ describe Vm::Machine do
     vm.expression.as(Expr::Value).value.should_not eq(19)
   end
 end
-
 

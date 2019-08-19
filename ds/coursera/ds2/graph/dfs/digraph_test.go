@@ -27,7 +27,6 @@ func TestDigraph_dfs(t *testing.T) {
 
 	assert.Equal(t, graph.Path{"a"}, route.To("a"))
 
-	// can take one of the path
 	assert.Equal(t, graph.Path{"a", "b", "c", "d"}, route.To("d"))
 	assert.Equal(t, graph.Path{"a", "b", "c", "m"}, route.To("m"))
 

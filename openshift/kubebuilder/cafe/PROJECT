@@ -1,0 +1,3 @@
+version: "2"
+domain: sthaha.cafe.xyz
+repo: github.com/sthaha/k8s-cafe

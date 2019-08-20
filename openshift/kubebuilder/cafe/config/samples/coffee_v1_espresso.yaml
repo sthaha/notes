@@ -1,0 +1,7 @@
+apiVersion: coffee.sthaha.cafe.xyz/v1
+kind: Espresso
+metadata:
+  name: espresso-sample
+spec:
+  # Add fields here
+  foo: bar

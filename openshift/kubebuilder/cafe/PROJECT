@@ -1,3 +1,7 @@
 version: "2"
 domain: sthaha.cafe.xyz
 repo: github.com/sthaha/k8s-cafe
+resources:
+- group: coffee
+  version: v1
+  kind: Espresso

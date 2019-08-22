@@ -25,3 +25,7 @@
   notes: >
     explains client-go architecture and components
   tags: [k8s, client-go]
+- url: https://docs.google.com/document/d/16j8C91jML4fQRQPhnHihNJUJDcbvW0RM1YAX2REHgyY/edit#
+  tags: [k8s, api, programming, knative, duck-typed]
+  notes: >
+    describes how knative api implements duck-typable resources

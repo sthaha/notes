@@ -23,6 +23,7 @@ func ForDirected(g *graph.Directed, x graph.Node) *Directed {
 	return d
 }
 
+// TODO: make To return err: NoRoute
 func (d *Directed) To(x graph.Node) graph.Path {
 	log.Printf("Find path from: %v -> %v | path: %v", x, d.origin, d.wayPoints)
 	route := graph.Path{x}

@@ -38,6 +38,7 @@ func (d *Directed) To(x graph.Node) graph.Path {
 	for {
 		log.Printf("   > %v |  path: %v", x, route)
 		x = d.wayPoints[x]
+		// prepending so that we don't have to reverse
 		route = append(graph.Path{x}, route...)
 		if x == d.origin {
 			break

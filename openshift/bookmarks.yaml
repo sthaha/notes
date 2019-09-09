@@ -29,3 +29,7 @@
   tags: [k8s, api, programming, knative, duck-typed]
   notes: >
     describes how knative api implements duck-typable resources
+- url: https://www.youtube.com/watch?v=6jBetJgluEE
+  tag: [k8s, legacy, istio, envoy, nginx, pet-store]
+  notes: >
+     transforms legacy pet-store app to k8s

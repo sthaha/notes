@@ -1,0 +1,7 @@
+apiVersion: arithmetic.simple.math.xyz/v1
+kind: Add
+metadata:
+  name: add-sample
+spec:
+  # Add fields here
+  foo: bar

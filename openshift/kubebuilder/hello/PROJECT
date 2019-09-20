@@ -1,0 +1,3 @@
+version: "2"
+domain: simple.math.xyz
+repo: github.com/sthaha/k8s-ctrl-simple

@@ -26,12 +26,14 @@ import (
 type AddSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
+	Numbers []uint64 `json:"numbers"`
 }
 
 // AddStatus defines the observed state of Add
 type AddStatus struct {
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
+	Result uint64 `json:"result,omitempty"`
 }
 
 // +kubebuilder:object:root=true

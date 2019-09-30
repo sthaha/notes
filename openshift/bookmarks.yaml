@@ -30,6 +30,12 @@
   notes: >
     describes how knative api implements duck-typable resources
 - url: https://www.youtube.com/watch?v=6jBetJgluEE
-  tag: [k8s, legacy, istio, envoy, nginx, pet-store]
+  tags: [k8s, legacy, istio, envoy, nginx, pet-store]
   notes: >
      transforms legacy pet-store app to k8s
+- url: https://speakerdeck.com/govargo/inside-of-kubernetes-controller
+  tags: [k8s, controller, archtecture, slideshow]
+  notes: >
+    A deep dive into k8s controller implementation beyond operator-sdk
+    controller reconcile
+

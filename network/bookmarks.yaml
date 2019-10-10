@@ -2,3 +2,6 @@ bookmarks:
   - url: https://powerdns.org/hello-dns/
     notes: hello dns; explains dns
     tags: [dns]
+  - url: https://www.youtube.com/watch?v=T4Df5_cojAs
+    notes: a good overview of https
+    tags: [ca, csr, pub-key, pri-key]

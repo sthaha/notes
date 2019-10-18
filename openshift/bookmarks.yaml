@@ -39,3 +39,8 @@
     A deep dive into k8s controller implementation beyond operator-sdk
     controller reconcile
 
+- url: https://www.youtube.com/watch?v=Nw1ymxcLIDI
+  tags: [k8s, rbac, rh, liggit, audit2rbac]
+  notes: >
+    the talk about RBAC
+

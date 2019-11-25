@@ -33,6 +33,7 @@
   tags: [k8s, legacy, istio, envoy, nginx, pet-store]
   notes: >
      transforms legacy pet-store app to k8s
+
 - url: https://speakerdeck.com/govargo/inside-of-kubernetes-controller
   tags: [k8s, controller, archtecture, slideshow]
   notes: >
@@ -44,3 +45,7 @@
   notes: >
     the talk about RBAC
 
+- url: https://www.youtube.com/watch?v=6v_BDHIgOY8
+  notes: >
+    container networking from scratch
+  tags: [superb, demo, networing, scratch]

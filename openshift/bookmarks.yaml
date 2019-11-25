@@ -48,4 +48,8 @@
 - url: https://www.youtube.com/watch?v=6v_BDHIgOY8
   notes: >
     container networking from scratch
-  tags: [superb, demo, networing, scratch]
+  tags: [superb, demo, networing, scratch, deep-dive]
+- url: https://github.com/kristenjacobs/container-networking
+  notes: >
+    container networking from scratch
+  tags: [deep-dive, superb, demo, networing, scratch]

@@ -9,3 +9,6 @@ bookmarks:
   - url: https://mlcourse.ai/
     notes: open ml course
     tags: [course, machine-learning]
+  - url: https://explained.ai/
+    notes: deep learning math
+    tags: [deep-learning, math, articles]

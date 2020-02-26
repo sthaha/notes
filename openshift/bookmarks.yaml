@@ -58,3 +58,9 @@
   tags: [openid, oauth2, k8s, keycloak]
   notes: >
     brief intro to open-id and oauth
+
+- url: https://www.youtube.com/watch?v=0Omvgd7Hg1I
+  tags: [networking, packet, routing]
+  notes: |-
+    Explains in pretty good detail how a packet travels in and
+    out of a k8s cluster

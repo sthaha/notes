@@ -19,7 +19,7 @@ dependencies:
   - notebook
   - numpy
   - pandas
-  - python=3.6*
+  - python=3.8*
   - toolz
   - nodejs
   ### finance
@@ -49,3 +49,4 @@ dependencies:
       - more-itertools
       - quandl
       - urllib3
+prefix: \\Anaconda3\envs\notes

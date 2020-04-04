@@ -1,0 +1,3 @@
+[submodule "finance/quant/Python-for-Finance-Repo-master"]
+	path = finance/quant/Python-for-Finance-Repo-master
+	url = gh:sthaha/notes-py-finance

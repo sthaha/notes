@@ -1,7 +1,9 @@
+---
 name: notes
 channels:
   - conda-forge
   - conda
+  - defaults
 dependencies:
   - dill
   - ipykernel
@@ -20,3 +22,30 @@ dependencies:
   - python=3.6*
   - toolz
   - nodejs
+  ### finance
+  #- pandas
+  - matplotlib
+  #- numpy
+  - openssl
+  - pandas-datareader
+  - patsy
+  - pip
+  - pyparsing
+  - pyqt
+  #- python
+  - python-dateutil
+  - pytz
+  - qt
+  - requests
+  - setuptools
+  - sip
+  - six
+  - statsmodels
+  - pip:
+      - certifi
+      - chardet
+      - idna
+      - inflection
+      - more-itertools
+      - quandl
+      - urllib3

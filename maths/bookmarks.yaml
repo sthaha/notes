@@ -1,5 +1,11 @@
 - url: http://immersivemath.com/ila/ch02_vectors/ch02.html
   notes: linear algebra visualised
-  tags: [linear-algebra visual vector trig]
+  tags: [linear-algebra, visual, vector, trig]
 - url: https://mathigon.org/courses
   notes: interactive math courses
+- url: https://www.desmos.com/calculator
+  notes: graphing calculator
+  tags: [calculator, graphing, 3blue1brown]
+- url: https://www.youtube.com/watch?v=yBw67Fb31Cs
+  notes: graphing calculator, trigonometry
+  tags: [calculator, graphing, 3blue1brown]

@@ -64,3 +64,6 @@
   notes: |-
     Explains in pretty good detail how a packet travels in and
     out of a k8s cluster
+- url: https://www.youtube.com/watch?v=_WgUwUf1d34&t=176s
+  tags: [networking, namespacing]
+  notes: Explains netns

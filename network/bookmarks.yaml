@@ -5,3 +5,7 @@ bookmarks:
   - url: https://www.youtube.com/watch?v=T4Df5_cojAs
     notes: a good overview of https
     tags: [ca, csr, pub-key, pri-key]
+
+  - url: https://www.youtube.com/watch?v=qYnA2DFEELw
+    notes: great intro to HA Proxy from scratch
+    tags: [ha-proxy, scratch]

@@ -6,9 +6,11 @@ const (
 	Eof     TokenType = "EOF"
 	Illegal           = "ILLEGAL"
 
-	Semicolon = ";"
+	Semicolon  = ";"
+	Whitespace = " "
 
-	Let = "let"
+	Let        = "let"
+	Identifier = "Identifier"
 
 	// operators
 	Plus TokenType = "+"
@@ -26,18 +28,4 @@ const (
 type token struct {
 	Type  TokenType
 	Value string
-}
-
-type tokenizer struct {
-	input string
-}
-
-func newTokenizer(input string) *tokenizer {
-	return &tokenizer{
-		input: input,
-	}
-}
-
-func (t *tokenizer) Next() *token {
-	return &token{Let, ""}
 }

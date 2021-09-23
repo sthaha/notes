@@ -1,16 +1,24 @@
-package main
+package lexer
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/sthaha/interpreter/token"
+)
 
 func TestTokenizer(t *testing.T) {
-	// t.Fatal("not implemented")
 	tests := []struct {
 		input    string
-		expected []token
+		expected []token.Token
 	}{{
-		input: ` let x = 2 + 45 * (8 - 4);`,
-		expected: []token{
-			token{Let, ""},
+		input: `=+(){}`,
+		expected: []token.Token{
+			tkn(token.Eq, '='),
+			tkn(token.Plus, '+'),
+			tkn(token.LParen, '('),
+			tkn(token.RParen, ')'),
+			tkn(token.LBrace, '{'),
+			tkn(token.RBrace, '}'),
 		},
 	}}
 	for _, tt := range tests {
@@ -19,9 +27,11 @@ func TestTokenizer(t *testing.T) {
 		for _, expected := range tt.expected {
 			actual := tokenizer.Next()
 			if actual.Type != expected.Type {
-				t.Fatal("fail")
+				t.Fatalf("type error expected: %s | got: %s", expected.Type, actual.Type)
+			}
+			if actual.Value != expected.Value {
+				t.Fatalf("value error expected: %q | got: %q", expected.Value, actual.Value)
 			}
 		}
-
 	}
 }

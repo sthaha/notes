@@ -1,46 +1,59 @@
 package lexer
 
-import "unicode"
+import (
+	"github.com/sthaha/interpreter/token"
+)
 
 type tokenizer struct {
 	input string
-	index int
-	len   int
+	next  int
+	size  int
 }
 
 func newTokenizer(input string) *tokenizer {
 	return &tokenizer{
 		input: input,
-		index: 0,
-		len:   len(input),
+		next:  0,
+		size:  len(input),
 	}
 }
 
-func (t *tokenizer) Next() *token {
+func tkn(t token.Type, v byte) token.Token {
+	return token.Token{Type: t, Value: string(v)}
+}
+
+func (t *tokenizer) Next() token.Token {
+
 	ch, eof := t.read()
 	if eof {
-		return &token{Eof, ""}
+		return tkn(token.Eof, ch)
 	}
 
 	switch ch {
-	case "(":
-		return &token{LeftParan, "("}
-	case ")":
-		return &token{RightParan, ")"}
+	case '=':
+		return tkn(token.Eq, ch)
+	case '+':
+		return tkn(token.Plus, ch)
+	case '(':
+		return tkn(token.LParen, ch)
+	case ')':
+		return tkn(token.RParen, ch)
+	case '{':
+		return tkn(token.LBrace, ch)
+	case '}':
+		return tkn(token.RBrace, ch)
+	default:
+		return tkn(token.Illegal, ch)
 	}
-	return &token{Let, ""}
 }
 
-func (t *tokenizer) read() (string, bool) {
-	if t.index >= t.len {
-		return "", true
+func (t *tokenizer) read() (byte, bool) {
+	if t.next >= t.size {
+		return 0, true
 	}
 
-	for t.index < t.len {
-		t.index++
+	ch := t.input[t.next]
+	t.next++
+	return ch, false
 
-		if unicode.IsSpace(rune(t.input[t.index])) {
-			continue
-		}
-	}
 }

@@ -1,10 +1,10 @@
-package main
+package token
 
-type TokenType string
+type Type string
 
 const (
-	Eof     TokenType = "EOF"
-	Illegal           = "ILLEGAL"
+	Eof     Type = "EOF"
+	Illegal      = "ILLEGAL"
 
 	Semicolon  = ";"
 	Whitespace = " "
@@ -13,19 +13,22 @@ const (
 	Identifier = "Identifier"
 
 	// operators
-	Plus TokenType = "+"
-	Sub            = "-"
-	Mul            = "*"
-	Div            = "/"
-	Mod            = "%"
+	Plus Type = "+"
+	Sub       = "-"
+	Mul       = "*"
+	Div       = "/"
+	Mod       = "%"
 
-	Eq TokenType = "="
+	Eq Type = "="
 
-	LeftParan  = "("
-	RightParan = ")"
+	LParen = "("
+	RParen = ")"
+
+	LBrace = "{"
+	RBrace = "}"
 )
 
-type token struct {
-	Type  TokenType
+type Token struct {
+	Type  Type
 	Value string
 }

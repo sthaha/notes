@@ -3,14 +3,14 @@ package token
 type Type string
 
 const (
-	Eof     Type = "EOF"
+	EOF     Type = "EOF"
 	Illegal      = "ILLEGAL"
 
-	Semicolon  = ";"
-	Whitespace = " "
+	Semicolon Type = ";"
+	Coma           = ","
 
-	Let        = "let"
-	Identifier = "Identifier"
+	Let        Type = "let"
+	Identifier      = "Identifier"
 
 	// operators
 	Plus Type = "+"
@@ -19,13 +19,18 @@ const (
 	Div       = "/"
 	Mod       = "%"
 
-	Eq Type = "="
+	Assign Type = "="
 
-	LParen = "("
-	RParen = ")"
+	LParen Type = "("
+	RParen      = ")"
+	LBrace      = "{"
+	RBrace      = "}"
 
-	LBrace = "{"
-	RBrace = "}"
+	// datatypes
+	Integer Type = "integer"
+	String       = "string"
+
+	Function Type = "fn"
 )
 
 type Token struct {

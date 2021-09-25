@@ -18,32 +18,58 @@ func newTokenizer(input string) *tokenizer {
 	}
 }
 
-func tkn(t token.Type, v byte) token.Token {
-	return token.Token{Type: t, Value: string(v)}
+func tkn(t token.Type) token.Token {
+	return token.Token{Type: t, Value: string(t)}
 }
+
+func id(name string) token.Token {
+	return token.Token{Type: token.Identifier, Value: name}
+}
+
+func integer(i string) token.Token {
+	return token.Token{Type: token.Identifier, Value: i}
+}
+
+func sym(t token.Type, b byte) token.Token {
+	return token.Token{Type: t, Value: string(b)}
+}
+
+var (
+	let       = tkn(token.Let)
+	assign    = tkn(token.Assign)
+	coma      = tkn(token.Coma)
+	semicolon = tkn(token.Semicolon)
+	plus      = tkn(token.Plus)
+	fn        = tkn(token.Function)
+	lParen    = tkn(token.LParen)
+	rParen    = tkn(token.RParen)
+	lBrace    = tkn(token.LBrace)
+	rBrace    = tkn(token.RBrace)
+	eof       = sym(token.EOF, 0)
+)
 
 func (t *tokenizer) Next() token.Token {
 
-	ch, eof := t.read()
-	if eof {
-		return tkn(token.Eof, ch)
+	ch, done := t.read()
+	if done {
+		return eof
 	}
 
 	switch ch {
 	case '=':
-		return tkn(token.Eq, ch)
+		return assign
 	case '+':
-		return tkn(token.Plus, ch)
+		return plus
 	case '(':
-		return tkn(token.LParen, ch)
+		return lParen
 	case ')':
-		return tkn(token.RParen, ch)
+		return rParen
 	case '{':
-		return tkn(token.LBrace, ch)
+		return lBrace
 	case '}':
-		return tkn(token.RBrace, ch)
+		return rBrace
 	default:
-		return tkn(token.Illegal, ch)
+		return tkn(token.Illegal)
 	}
 }
 

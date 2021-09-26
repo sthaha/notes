@@ -118,10 +118,10 @@ func assertToken(t *testing.T, expected, actual token.Token) {
 }
 
 func assertTokens(t *testing.T, input string, expected []token.Token) {
-	tokenizer := newTokenizer(input)
+	lxr := New(input)
 
 	for _, expected := range expected {
-		actual := tokenizer.Next()
+		actual := lxr.Next()
 		assertToken(t, expected, actual)
 	}
 

@@ -4,14 +4,14 @@ import (
 	"github.com/sthaha/interpreter/token"
 )
 
-type tokenizer struct {
+type lexer struct {
 	input string
 	next  int
 	size  int
 }
 
-func newTokenizer(input string) *tokenizer {
-	return &tokenizer{
+func New(input string) *lexer {
+	return &lexer{
 		input: input,
 		next:  0,
 		size:  len(input),
@@ -69,17 +69,17 @@ var (
 	eof    = sym(token.EOF, 0)
 )
 
-func (t *tokenizer) nextChar() (byte, bool) {
-	ch, done := t.read()
+func (l *lexer) nextChar() (byte, bool) {
+	ch, done := l.read()
 	for isWhitespace(ch) {
-		ch, done = t.read()
+		ch, done = l.read()
 	}
 	return ch, done
 }
 
-func (t *tokenizer) Next() token.Token {
+func (l *lexer) Next() token.Token {
 
-	ch, done := t.nextChar()
+	ch, done := l.nextChar()
 	if done {
 		return eof
 	}
@@ -90,14 +90,14 @@ func (t *tokenizer) Next() token.Token {
 	case ',':
 		return coma
 	case '=':
-		if ch, done := t.peek(); !done && ch == '=' {
-			t.read()
+		if ch, done := l.peek(); !done && ch == '=' {
+			l.read()
 			return eq
 		}
 		return assign
 	case '!':
-		if ch, done := t.peek(); !done && ch == '=' {
-			t.read()
+		if ch, done := l.peek(); !done && ch == '=' {
+			l.read()
 			return neq
 		}
 		return bang
@@ -112,14 +112,14 @@ func (t *tokenizer) Next() token.Token {
 		return slash
 
 	case '>':
-		if ch, done := t.peek(); !done && ch == '=' {
-			t.read()
+		if ch, done := l.peek(); !done && ch == '=' {
+			l.read()
 			return ge
 		}
 		return gt
 	case '<':
-		if ch, done := t.peek(); !done && ch == '=' {
-			t.read()
+		if ch, done := l.peek(); !done && ch == '=' {
+			l.read()
 			return le
 		}
 		return lt
@@ -136,60 +136,60 @@ func (t *tokenizer) Next() token.Token {
 
 		if isLetter(ch) {
 			ret := token.Token{}
-			ret.Value = t.readWord()
+			ret.Value = l.readWord()
 			ret.Type = lookupType(ret.Value)
-			// log.Printf("looking up: %q -> %v \n", ret.Value, ret.Type)
+			// log.Printf("looking up: %q -> %v \n", ret.Value, rel.Type)
 			// log.Printf("returning : %v  \n", ret)
 			return ret
 		}
 		if isDigit(ch) {
-			num := t.readNumber()
+			num := l.readNumber()
 			return integer(num)
 		}
 		return sym(token.Illegal, ch)
 	}
 }
 
-func (t *tokenizer) readWord() string {
-	prev := t.next - 1
+func (l *lexer) readWord() string {
+	prev := l.next - 1
 	for {
-		ch, done := t.read()
+		ch, done := l.read()
 		if done || !isLetter(ch) {
-			t.next--
+			l.next--
 			break
 		}
 	}
-	return t.input[prev:t.next]
+	return l.input[prev:l.next]
 }
 
-func (t *tokenizer) readNumber() string {
-	prev := t.next - 1
+func (l *lexer) readNumber() string {
+	prev := l.next - 1
 	for {
-		ch, done := t.read()
+		ch, done := l.read()
 		if done || !isDigit(ch) {
-			t.next--
+			l.next--
 			break
 		}
 	}
-	return t.input[prev:t.next]
+	return l.input[prev:l.next]
 }
 
-func (t *tokenizer) peek() (byte, bool) {
-	if t.next >= t.size {
+func (l *lexer) peek() (byte, bool) {
+	if l.next >= l.size {
 		return 0, true
 	}
 
-	return t.input[t.next], false
+	return l.input[l.next], false
 
 }
 
-func (t *tokenizer) read() (byte, bool) {
-	if t.next >= t.size {
+func (l *lexer) read() (byte, bool) {
+	if l.next >= l.size {
 		return 0, true
 	}
 
-	ch := t.input[t.next]
-	t.next++
+	ch := l.input[l.next]
+	l.next++
 	return ch, false
 
 }

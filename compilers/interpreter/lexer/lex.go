@@ -35,17 +35,31 @@ func sym(t token.Type, b byte) token.Token {
 }
 
 var (
-	let       = tkn(token.Let)
-	assign    = tkn(token.Assign)
+	// keywords
+	let     = tkn(token.Let)
+	kwTrue  = tkn(token.True)
+	kwFalse = tkn(token.False)
+
 	coma      = tkn(token.Coma)
 	semicolon = tkn(token.Semicolon)
-	plus      = tkn(token.Plus)
-	fn        = tkn(token.Function)
-	lParen    = tkn(token.LParen)
-	rParen    = tkn(token.RParen)
-	lBrace    = tkn(token.LBrace)
-	rBrace    = tkn(token.RBrace)
-	eof       = sym(token.EOF, 0)
+	assign    = tkn(token.Assign)
+	// arithmetic operators
+	plus     = tkn(token.Plus)
+	minus    = tkn(token.Minus)
+	asterisk = tkn(token.Asterisk)
+	slash    = tkn(token.Slash)
+
+	gt = tkn(token.GT)
+	lt = tkn(token.LT)
+
+	bang = tkn(token.Bang)
+
+	fn     = tkn(token.Function)
+	lParen = tkn(token.LParen)
+	rParen = tkn(token.RParen)
+	lBrace = tkn(token.LBrace)
+	rBrace = tkn(token.RBrace)
+	eof    = sym(token.EOF, 0)
 )
 
 func (t *tokenizer) nextChar() (byte, bool) {
@@ -64,10 +78,29 @@ func (t *tokenizer) Next() token.Token {
 	}
 
 	switch ch {
+	case ';':
+		return semicolon
+	case ',':
+		return coma
 	case '=':
 		return assign
+	case '!':
+		return bang
+
 	case '+':
 		return plus
+	case '-':
+		return minus
+	case '*':
+		return asterisk
+	case '/':
+		return slash
+
+	case '>':
+		return gt
+	case '<':
+		return lt
+
 	case '(':
 		return lParen
 	case ')':
@@ -86,9 +119,10 @@ func (t *tokenizer) Next() token.Token {
 			// log.Printf("returning : %v  \n", ret)
 			return ret
 		}
-		// if isDigit(ch) {
-
-		// }
+		if isDigit(ch) {
+			num := t.readNumber()
+			return integer(num)
+		}
 		return sym(token.Illegal, ch)
 	}
 }
@@ -98,16 +132,31 @@ func (t *tokenizer) readWord() string {
 	for {
 		ch, done := t.read()
 		if done || !isLetter(ch) {
+			t.next--
 			break
 		}
 	}
-	return t.input[prev : t.next-1]
+	return t.input[prev:t.next]
+}
+
+func (t *tokenizer) readNumber() string {
+	prev := t.next - 1
+	for {
+		ch, done := t.read()
+		if done || !isDigit(ch) {
+			t.next--
+			break
+		}
+	}
+	return t.input[prev:t.next]
 }
 
 var (
 	keywords = map[string]token.Type{
-		"let": token.Let,
-		"fn":  token.Function,
+		"let":   token.Let,
+		"fn":    token.Function,
+		"true":  token.True,
+		"false": token.False,
 	}
 )
 
@@ -116,6 +165,10 @@ func lookupType(x string) token.Type {
 		return t
 	}
 	return token.Identifier
+}
+
+func isDigit(b byte) bool {
+	return '0' <= b && b <= '9'
 }
 
 func isLetter(b byte) bool {

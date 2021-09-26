@@ -9,15 +9,23 @@ const (
 	Semicolon Type = ";"
 	Coma           = ","
 
-	Let        Type = "let"
-	Identifier      = "Identifier"
+	// keywords
+	Let   Type = "let"
+	True       = "true"
+	False      = "false"
+
+	Identifier = "Identifier"
 
 	// operators
-	Plus Type = "+"
-	Sub       = "-"
-	Mul       = "*"
-	Div       = "/"
-	Mod       = "%"
+	Plus     Type = "+"
+	Minus         = "-"
+	Asterisk      = "*"
+	Slash         = "/"
+
+	GT = ">"
+	GE = ">="
+	LT = "<"
+	LE = "<="
 
 	Assign Type = "="
 
@@ -25,6 +33,9 @@ const (
 	RParen      = ")"
 	LBrace      = "{"
 	RBrace      = "}"
+
+	// logical
+	Bang Type = "!"
 
 	// datatypes
 	Integer Type = "integer"

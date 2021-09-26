@@ -36,9 +36,12 @@ func sym(t token.Type, b byte) token.Token {
 
 var (
 	// keywords
-	let     = tkn(token.Let)
-	kwTrue  = tkn(token.True)
-	kwFalse = tkn(token.False)
+	let      = tkn(token.Let)
+	kwTrue   = tkn(token.True)
+	kwFalse  = tkn(token.False)
+	kwIf     = tkn(token.If)
+	kwElse   = tkn(token.Else)
+	kwReturn = tkn(token.Return)
 
 	coma      = tkn(token.Coma)
 	semicolon = tkn(token.Semicolon)
@@ -153,10 +156,13 @@ func (t *tokenizer) readNumber() string {
 
 var (
 	keywords = map[string]token.Type{
-		"let":   token.Let,
-		"fn":    token.Function,
-		"true":  token.True,
-		"false": token.False,
+		"let":    token.Let,
+		"fn":     token.Function,
+		"true":   token.True,
+		"false":  token.False,
+		"if":     token.If,
+		"else":   token.Else,
+		"return": token.Return,
 	}
 )
 

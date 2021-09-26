@@ -10,9 +10,12 @@ const (
 	Coma           = ","
 
 	// keywords
-	Let   Type = "let"
-	True       = "true"
-	False      = "false"
+	Let    Type = "let"
+	True        = "true"
+	False       = "false"
+	If          = "if"
+	Else        = "else"
+	Return      = "return"
 
 	Identifier = "Identifier"
 

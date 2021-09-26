@@ -16,44 +16,46 @@ func TestTokenizer_id(t *testing.T) {
 	assertToken(t, token.Token{Type: token.Identifier, Value: "five"}, id("five"))
 }
 
-func TestTokenizer_All(t *testing.T) {
+func TestTokenizer_Keywords(t *testing.T) {
 
 	input := `
-		let five = 5;
-		let ten = 10;
-
-		let add = fn(x, y) {
-			x + y;
-		};
-
-		let result = add(five, ten);
-		!-/*+5;
-		5 > 3;
-		3 < 5;
-		!true == false
-		-5
-		10 == 10;
-		 0 != 10;
+    if (5 < 10 ) {
+      return true;
+    } else {
+      return false;
+    }
 	`
 	expected := []token.Token{
-		let, id("five"), assign, integer("5"), semicolon,
-		let, id("ten"), assign, integer("10"), semicolon,
-
-		let, id("add"), assign, fn, lParen, id("x"), coma, id("y"), rParen, lBrace,
-		id("x"), plus, id("y"), semicolon,
-		rBrace, semicolon,
-
-		let, id("result"), assign,
-		id("add"), lParen, id("five"), coma, id("ten"), rParen, semicolon,
-		bang, minus, slash, asterisk, plus, integer("5"), semicolon,
-		integer("5"), gt, integer("3"), semicolon,
-		integer("3"), lt, integer("5"), semicolon,
+		kwIf, lParen, integer("5"), lt, integer("10"), rParen, lBrace,
+		kwReturn, kwTrue, semicolon,
+		rBrace, kwElse, lBrace,
+		kwReturn, kwFalse, semicolon,
+		rBrace,
 		eof,
 	}
 
 	assertTokens(t, input, expected)
-
 }
+
+func TestTokenizer_Arithmetic(t *testing.T) {
+
+	input := `
+		!-/*+5;
+		5 > 3;
+		3 < 5;
+		3 < 10 > 5;
+	`
+	expected := []token.Token{
+		bang, minus, slash, asterisk, plus, integer("5"), semicolon,
+		integer("5"), gt, integer("3"), semicolon,
+		integer("3"), lt, integer("5"), semicolon,
+		integer("3"), lt, integer("10"), gt, integer("5"), semicolon,
+		eof,
+	}
+
+	assertTokens(t, input, expected)
+}
+
 func TestTokenizer_Helloworld(t *testing.T) {
 
 	input := `

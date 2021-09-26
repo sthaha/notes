@@ -52,8 +52,12 @@ var (
 	asterisk = tkn(token.Asterisk)
 	slash    = tkn(token.Slash)
 
-	gt = tkn(token.GT)
-	lt = tkn(token.LT)
+	gt  = tkn(token.GT)
+	eq  = tkn(token.Eq)
+	neq = tkn(token.NE)
+	ge  = tkn(token.GE)
+	lt  = tkn(token.LT)
+	le  = tkn(token.LE)
 
 	bang = tkn(token.Bang)
 
@@ -86,8 +90,16 @@ func (t *tokenizer) Next() token.Token {
 	case ',':
 		return coma
 	case '=':
+		if ch, done := t.peek(); !done && ch == '=' {
+			t.read()
+			return eq
+		}
 		return assign
 	case '!':
+		if ch, done := t.peek(); !done && ch == '=' {
+			t.read()
+			return neq
+		}
 		return bang
 
 	case '+':
@@ -100,8 +112,16 @@ func (t *tokenizer) Next() token.Token {
 		return slash
 
 	case '>':
+		if ch, done := t.peek(); !done && ch == '=' {
+			t.read()
+			return ge
+		}
 		return gt
 	case '<':
+		if ch, done := t.peek(); !done && ch == '=' {
+			t.read()
+			return le
+		}
 		return lt
 
 	case '(':
@@ -154,6 +174,26 @@ func (t *tokenizer) readNumber() string {
 	return t.input[prev:t.next]
 }
 
+func (t *tokenizer) peek() (byte, bool) {
+	if t.next >= t.size {
+		return 0, true
+	}
+
+	return t.input[t.next], false
+
+}
+
+func (t *tokenizer) read() (byte, bool) {
+	if t.next >= t.size {
+		return 0, true
+	}
+
+	ch := t.input[t.next]
+	t.next++
+	return ch, false
+
+}
+
 var (
 	keywords = map[string]token.Type{
 		"let":    token.Let,
@@ -187,15 +227,4 @@ func isWhitespace(b byte) bool {
 		return true
 	}
 	return false
-}
-
-func (t *tokenizer) read() (byte, bool) {
-	if t.next >= t.size {
-		return 0, true
-	}
-
-	ch := t.input[t.next]
-	t.next++
-	return ch, false
-
 }

@@ -25,6 +25,8 @@ const (
 	Asterisk      = "*"
 	Slash         = "/"
 
+	Eq = "=="
+	NE = "!="
 	GT = ">"
 	GE = ">="
 	LT = "<"

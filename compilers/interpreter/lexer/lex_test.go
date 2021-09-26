@@ -16,6 +16,31 @@ func TestTokenizer_id(t *testing.T) {
 	assertToken(t, token.Token{Type: token.Identifier, Value: "five"}, id("five"))
 }
 
+func TestTokenizer_Cmp(t *testing.T) {
+
+	input := `
+	  5 == 10;
+		10 != 5;
+		5 >= 10; 
+		10 <= 10; 
+		!true == false;
+		true != !false;
+	`
+	i5 := integer("5")
+	i10 := integer("10")
+	expected := []token.Token{
+		i5, eq, i10, semicolon,
+		i10, neq, i5, semicolon,
+		i5, ge, i10, semicolon,
+		i10, le, i10, semicolon,
+		bang, kwTrue, eq, kwFalse, semicolon,
+		kwTrue, neq, bang, kwFalse, semicolon,
+		eof,
+	}
+
+	assertTokens(t, input, expected)
+}
+
 func TestTokenizer_Keywords(t *testing.T) {
 
 	input := `

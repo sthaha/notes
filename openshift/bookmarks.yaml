@@ -53,6 +53,10 @@
   notes: >
     container networking from scratch
   tags: [deep-dive, superb, demo, networing, scratch]
+- url: https://github.com/kristenjacobs/container-networking
+  notes: >
+    container networking from scratch
+  tags: [deep-dive, superb, demo, networing, scratch]
 
 - url: https://www.youtube.com/watch?v=nPZ8QDZXtLI
   tags: [openid, oauth2, k8s, keycloak]
@@ -67,3 +71,8 @@
 - url: https://www.youtube.com/watch?v=_WgUwUf1d34&t=176s
   tags: [networking, namespacing]
   notes: Explains netns
+
+- url: https://www.youtube.com/watch?v=89PdRvRUcPU
+  tags: [controller, scratch]
+  notes: |-
+    builds controller from scratch

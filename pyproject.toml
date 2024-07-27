@@ -1,0 +1,70 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "notes"
+dynamic = ["version"]
+description = 'All my notes'
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+keywords = []
+authors = [
+  { name = "Sunil Thaha", email = "sthaha@redhat.com" },
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+dependencies = [
+  "click",
+	"jupyterlab",
+	"notebook",
+	"voila",
+	"ipywidgets",
+	"pandas",
+]
+
+[project.urls]
+Documentation = "https://github.com/Sunil Thaha/notes#readme"
+Issues = "https://github.com/Sunil Thaha/notes/issues"
+Source = "https://github.com/Sunil Thaha/notes"
+
+[project.scripts]
+notes = "notes.cli:notes"
+
+[tool.hatch.version]
+path = "src/notes/__about__.py"
+
+[tool.hatch.envs.scripts]
+notebook = "jupyter notebook"
+
+[tool.hatch.envs.types]
+extra-dependencies = [
+  "mypy>=1.0.0",
+]
+[tool.hatch.envs.types.scripts]
+check = "mypy --install-types --non-interactive {args:src/notes tests}"
+
+[tool.coverage.run]
+source_pkgs = ["notes", "tests"]
+branch = true
+parallel = true
+omit = [
+  "src/notes/__about__.py",
+]
+
+[tool.coverage.paths]
+notes = ["src/notes", "*/notes/src/notes"]
+tests = ["tests", "*/notes/tests"]
+
+[tool.coverage.report]
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]

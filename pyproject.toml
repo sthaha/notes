@@ -7,7 +7,7 @@ name = "notes"
 dynamic = ["version"]
 description = 'All my notes'
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.12"
 license = "MIT"
 keywords = []
 authors = [
@@ -25,14 +25,19 @@ dependencies = [
 	"jupyterlab",
 	"notebook",
 	"voila",
+	# vim please
+  "jupyterlab-vim",
+
 	"ipywidgets",
 	"pandas",
+	# read parquet files
+	"pyarrow",
 ]
 
 [project.urls]
-Documentation = "https://github.com/Sunil Thaha/notes#readme"
-Issues = "https://github.com/Sunil Thaha/notes/issues"
-Source = "https://github.com/Sunil Thaha/notes"
+Documentation = "https://github.com/sthaha/notes#readme"
+Issues = "https://github.com/sthaha/notes/issues"
+Source = "https://github.com/sthaha/notes"
 
 [project.scripts]
 notes = "notes.cli:notes"
@@ -40,8 +45,8 @@ notes = "notes.cli:notes"
 [tool.hatch.version]
 path = "src/notes/__about__.py"
 
-[tool.hatch.envs.scripts]
-notebook = "jupyter notebook"
+[tool.hatch.envs.default.scripts]
+lab = "jupyter lab"
 
 [tool.hatch.envs.types]
 extra-dependencies = [

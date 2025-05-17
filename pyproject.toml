@@ -32,6 +32,10 @@ dependencies = [
 	"pandas",
 	# read parquet files
 	"pyarrow",
+
+  # graphing
+	"matplotlib",
+	"graphviz",
 ]
 
 [project.urls]

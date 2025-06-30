@@ -10,32 +10,33 @@ readme = "README.md"
 requires-python = ">=3.12"
 license = "MIT"
 keywords = []
-authors = [
-  { name = "Sunil Thaha", email = "sthaha@redhat.com" },
-]
+authors = [{ name = "Sunil Thaha", email = "sthaha@redhat.com" }]
 classifiers = [
-  "Development Status :: 4 - Beta",
-  "Programming Language :: Python",
-  "Programming Language :: Python :: 3.12",
-  "Programming Language :: Python :: Implementation :: CPython",
-  "Programming Language :: Python :: Implementation :: PyPy",
+	"Development Status :: 4 - Beta",
+	"Programming Language :: Python",
+	"Programming Language :: Python :: 3.12",
+	"Programming Language :: Python :: Implementation :: CPython",
+	"Programming Language :: Python :: Implementation :: PyPy",
 ]
 dependencies = [
-  "click",
+	"click",
 	"jupyterlab",
 	"notebook",
 	"voila",
 	# vim please
-  "jupyterlab-vim",
+	"jupyterlab-vim",
 
 	"ipywidgets",
 	"pandas",
 	# read parquet files
 	"pyarrow",
 
-  # graphing
+	# graphing
 	"matplotlib",
 	"graphviz",
+
+	#  pytorch
+	"torch",
 ]
 
 [project.urls]
@@ -53,9 +54,7 @@ path = "src/notes/__about__.py"
 lab = "jupyter lab"
 
 [tool.hatch.envs.types]
-extra-dependencies = [
-  "mypy>=1.0.0",
-]
+extra-dependencies = ["mypy>=1.0.0"]
 [tool.hatch.envs.types.scripts]
 check = "mypy --install-types --non-interactive {args:src/notes tests}"
 
@@ -63,17 +62,11 @@ check = "mypy --install-types --non-interactive {args:src/notes tests}"
 source_pkgs = ["notes", "tests"]
 branch = true
 parallel = true
-omit = [
-  "src/notes/__about__.py",
-]
+omit = ["src/notes/__about__.py"]
 
 [tool.coverage.paths]
 notes = ["src/notes", "*/notes/src/notes"]
 tests = ["tests", "*/notes/tests"]
 
 [tool.coverage.report]
-exclude_lines = [
-  "no cov",
-  "if __name__ == .__main__.:",
-  "if TYPE_CHECKING:",
-]
+exclude_lines = ["no cov", "if __name__ == .__main__.:", "if TYPE_CHECKING:"]
